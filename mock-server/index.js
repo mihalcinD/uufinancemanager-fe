@@ -18,6 +18,8 @@ const checkJwt = auth({
 //? Pro implementaci přihlašování apod je potřeba využít auth0
 //? Na BE je už potřeba poslat jenom bearer token (access_token)
 /*
+  userName: kubalucky762@gmail.com
+  userPassword: Heslo1234
   domain: dev-ducb3de5dqthsoxl.us.auth0.com
   clientId: 0xLrLmh2QJBfQjkv0IgDtRHignlRsiuk
   clientSecret: u-89mfKaGAX9aGQmsg5NvqfHaZkgNYjzEf25h5WhI4QU-rBdWjpNxUOxO0DdGqGA
