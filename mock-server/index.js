@@ -4,24 +4,31 @@ const app = express()
 const port = 3007
 
 const householdRouter = require("./routes/household");
-const identityRouter = require("./routes/identity");
+const tagRouter = require("./routes/tag");
 const savingRouter = require("./routes/saving");
 const transactionRouter = require("./routes/transaction");
 
 
-// Authorization middleware. When used, the Access Token must
-// exist and be verified against the Auth0 JSON Web Key Set.
+//? Authorization middleware.
 const checkJwt = auth({
   audience: 'http://localhost:300',
   issuerBaseURL: `https://dev-ducb3de5dqthsoxl.us.auth0.com/`,
 });
+
+//? Pro implementaci přihlašování apod je potřeba využít auth0
+//? Na BE je už potřeba poslat jenom bearer token (access_token)
+/*
+  domain: dev-ducb3de5dqthsoxl.us.auth0.com
+  clientId: 0xLrLmh2QJBfQjkv0IgDtRHignlRsiuk
+  clientSecret: u-89mfKaGAX9aGQmsg5NvqfHaZkgNYjzEf25h5WhI4QU-rBdWjpNxUOxO0DdGqGA
+*/
 
 app.get('/', (_req, _res) => {
   _res.send('Hello World!')
 })
 
 app.use("/household", checkJwt, householdRouter)
-app.use("/identity", checkJwt, identityRouter)
+app.use("/tag", checkJwt, tagRouter)
 app.use("/saving", checkJwt, savingRouter)
 app.use("/transaction", checkJwt, transactionRouter)
 
