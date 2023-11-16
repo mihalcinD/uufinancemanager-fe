@@ -15,8 +15,8 @@ const ContextsContainer = ({ children }: Props) => {
   return (
     <ThemeProvider theme={theme}>
       <Auth0Provider
-        domain="dev-4ojfaid8tmaplkrp.us.auth0.com"
-        clientId="sg6O1UtekVdCSt56cD0DB7VRYTqxGhc8"
+        domain="dev-ducb3de5dqthsoxl.us.auth0.com"
+        clientId="0xLrLmh2QJBfQjkv0IgDtRHignlRsiuk"
         authorizationParams={{
           redirect_uri: window.location.origin,
         }}>
