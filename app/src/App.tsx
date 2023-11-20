@@ -1,7 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, Typography } from '@mui/material';
 import Login from './routes/Login.tsx';
+import Dashboard from './routes/Dashboard.tsx';
+import Transactions from './routes/Transactions.tsx';
+import SavingGoals from './routes/SavingGoals.tsx';
+import Loading from './routes/Loading.tsx';
+import FamilySettings from './routes/FamilySettings.tsx';
+import Statistics from './routes/Statistics.tsx';
+import MyProfile from './routes/MyProfile.tsx';
 
 function App() {
   const { isAuthenticated, isLoading, logout } = useAuth0();
@@ -10,29 +16,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         {isLoading ? (
-          <Route path={'/*'} element={<></>} />
+          <Route path={'/*'} element={<Loading />} />
         ) : isAuthenticated ? (
           <Route>
-            <Route
-              path={'/'}
-              element={
-                <>
-                  <Typography variant={'h1'} component={'h1'}>
-                    Logged in
-                  </Typography>
-                  <Button
-                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-                    variant={'contained'}>
-                    Logout
-                  </Button>
-                </>
-              }
-            />
-            <Route path={'/statistics/:id'} element={<></>} />
-            <Route path={'/transactions/:id'} element={<></>} />
-            <Route path={'/saving-goals/:id'} element={<></>} />
-            <Route path={'/family/:id'} element={<></>} />
-            <Route path={'/profile'} element={<></>} />
+            <Route path={'/:id/dashboard'} element={<Dashboard />} />
+            <Route path={'/:id/statistics'} element={<Statistics />} />
+            <Route path={'/:id/transactions'} element={<Transactions />} />
+            <Route path={'/:id/saving-goals'} element={<SavingGoals />} />
+            <Route path={'/:id/settings'} element={<FamilySettings />} />
+            <Route path={'/me'} element={<MyProfile />} />
+            <Route path={'/*'} element={<Navigate to={`/${1}/dashboard`} />} />
           </Route>
         ) : (
           <Route path={'/*'} element={<Login />} />
