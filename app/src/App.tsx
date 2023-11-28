@@ -10,7 +10,7 @@ import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
 
 function App() {
-  const { isAuthenticated, isLoading, logout } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   return (
     <BrowserRouter>

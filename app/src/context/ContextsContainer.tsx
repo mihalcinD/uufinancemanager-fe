@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@auth0/auth0-react';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ApiProvider } from './ApiContext.tsx';
 
 type Props = {
   children: JSX.Element;
@@ -19,9 +20,12 @@ const ContextsContainer = ({ children }: Props) => {
         clientId="CiKjNezUXehRBVq18HRPIH9skBhZTK4k"
         authorizationParams={{
           redirect_uri: window.location.origin,
+          audience: 'http://uushoppinglist.com',
         }}>
-        <CssBaseline />
-        {children}
+        <ApiProvider>
+          <CssBaseline />
+          {children}
+        </ApiProvider>
       </Auth0Provider>
     </ThemeProvider>
   );
