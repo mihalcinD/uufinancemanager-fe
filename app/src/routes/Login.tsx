@@ -11,17 +11,17 @@ const Login = () => {
       alignItems={'center'}
       height={'100vh'}
       flexDirection={'column'}
-      gap={10}
-      sx={{bgcolor: 'primary.dark'}}
-      >
-      <Typography variant={'h3'} component={'h3'} fontWeight={800}>
-        Welcome to the uuFinanceManager.
-      </Typography>
-      <Typography variant={'h4'} component={'h4'} >
-        Please log in to continue to the application.      
+      gap={10}>
+      <Box flexDirection={'column'} display={'flex'} justifyContent={'center'} alignItems={'center'} gap={2}>
+        <Typography variant={'h1'} component={'h1'} fontWeight={800} textAlign={'center'}>
+          uuFinanceManager
         </Typography>
-      <Button onClick={() => loginWithRedirect()} variant={'contained'}>
-        LOGIN <LoginIcon/>
+        <Typography variant={'h5'} component={'h2'}>
+          Please log in to continue to the application.
+        </Typography>
+      </Box>
+      <Button onClick={() => loginWithRedirect()} variant={'outlined'} size={'large'} startIcon={<LoginIcon />}>
+        LOGIN
       </Button>
     </Box>
   );
