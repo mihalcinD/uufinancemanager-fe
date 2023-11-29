@@ -2,6 +2,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ApiProvider } from './ApiContext.tsx';
+import { HouseholdsProvider } from './HouseholdsContext.tsx';
 
 type Props = {
   children: JSX.Element;
@@ -23,8 +24,10 @@ const ContextsContainer = ({ children }: Props) => {
           audience: 'http://uushoppinglist.com',
         }}>
         <ApiProvider>
-          <CssBaseline />
-          {children}
+          <HouseholdsProvider>
+            <CssBaseline />
+            {children}
+          </HouseholdsProvider>
         </ApiProvider>
       </Auth0Provider>
     </ThemeProvider>

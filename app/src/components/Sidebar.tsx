@@ -9,7 +9,9 @@ import {
   ListSubheader,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { useHouseholdsContext } from '../context/HouseholdsContext.tsx';
 const Sidebar = () => {
+  const { households, setActive, active } = useHouseholdsContext();
   return (
     <Drawer
       sx={{
@@ -30,9 +32,9 @@ const Sidebar = () => {
       <List
         sx={{ marginTop: 2 }}
         subheader={<ListSubheader sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Households</ListSubheader>}>
-        {["Jacob's family", "David's family", "Jarda's family"].map((text, index) => (
+        {households.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton selected={!!(index % 2)}>
+            <ListItemButton selected={index === active} onClick={() => setActive(index)}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
