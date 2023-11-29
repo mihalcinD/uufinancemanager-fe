@@ -1,6 +1,4 @@
-import React from 'react';
 import {
-  Divider,
   Drawer,
   List,
   ListItem,
@@ -8,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography,
   ListSubheader,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
@@ -35,7 +32,7 @@ const Sidebar = () => {
         subheader={<ListSubheader sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Households</ListSubheader>}>
         {["Jacob's family", "David's family", "Jarda's family"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton selected={index % 2 ? true : false}>
+            <ListItemButton selected={!!(index % 2)}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
