@@ -10,10 +10,13 @@ import {
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHouseholdsContext } from '../context/HouseholdsContext.tsx';
+import { useDrawerContext } from '../context/DrawerContext.tsx';
 const Sidebar = () => {
   const { households, setActive, active } = useHouseholdsContext();
+  const { isOpen } = useDrawerContext();
   return (
     <Drawer
+      open={isOpen}
       sx={{
         backgroundColor: 'primary.main',
         width: 300,
@@ -26,8 +29,8 @@ const Sidebar = () => {
           backgroundColor: 'palette.background.paper',
         },
       }}
-      variant="permanent">
-      <Toolbar sx={{ backgroundColor: 'amber.500' }} />
+      variant="persistent">
+      <Toolbar />
 
       <List
         sx={{ marginTop: 2 }}
