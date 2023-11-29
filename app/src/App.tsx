@@ -8,6 +8,7 @@ import Loading from './routes/Loading.tsx';
 import FamilySettings from './routes/FamilySettings.tsx';
 import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
+import Layout from './components/Layout.tsx';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -18,7 +19,7 @@ function App() {
         {isLoading ? (
           <Route path={'/*'} element={<Loading />} />
         ) : isAuthenticated ? (
-          <Route>
+          <Route element={<Layout />}>
             <Route path={'/:id/dashboard'} element={<Dashboard />} />
             <Route path={'/:id/statistics'} element={<Statistics />} />
             <Route path={'/:id/transactions'} element={<Transactions />} />
