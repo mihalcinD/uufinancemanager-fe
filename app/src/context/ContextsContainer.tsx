@@ -9,7 +9,7 @@ type Props = {
 const ContextsContainer = ({ children }: Props) => {
   let theme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
     },
   });
   theme = responsiveFontSizes(theme);
