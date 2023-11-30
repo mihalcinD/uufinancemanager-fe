@@ -4,11 +4,13 @@ import { useState, MouseEvent } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useDrawerContext } from '../context/DrawerContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { logout, user } = useAuth0();
   const { toggleIsOpen } = useDrawerContext();
+  const navigate = useNavigate();
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -16,7 +18,7 @@ const Header = () => {
     setAnchorElUser(null);
   };
   return (
-    <AppBar position="fixed" sx={{ boxShadow: 'none', zIndex: theme => theme.zIndex.drawer + 1 }}>
+    <AppBar position="fixed" sx={{ boxShadow: 'none', zIndex: theme => theme.zIndex.drawer + 100 }}>
       <Toolbar
         sx={{
           display: 'flex',
@@ -51,9 +53,9 @@ const Header = () => {
           }}
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}>
-          <Box px={2} pt={1} pb={2}>
+          <MenuItem onClick={() => navigate('/me')}>
             <Typography textAlign="center">{user?.email}</Typography>
-          </Box>
+          </MenuItem>
           <MenuItem onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
             <Typography textAlign="center">Logout</Typography>
           </MenuItem>
