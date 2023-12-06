@@ -19,7 +19,7 @@ export const DrawerContext = createContext<DrawerContextType>(undefined!);
 export const DrawerProvider = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const theme = useTheme();
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('lg'));
 
   const toggleIsOpen = () => {
     setIsOpen(prevState => !prevState);
