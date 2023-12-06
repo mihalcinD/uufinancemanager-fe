@@ -9,7 +9,8 @@ import {
   ListSubheader,
   AppBar,
   IconButton,
-  Box,
+  useTheme,
+  Divider,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHouseholdsContext } from '../context/HouseholdsContext.tsx';
@@ -22,6 +23,7 @@ const Sidebar = () => {
   const { isOpen } = useDrawerContext();
   const navigate = useNavigate();
   const { toggleIsOpen } = useDrawerContext();
+  const theme = useTheme();
   return (
     <Drawer
       open={isOpen}
@@ -42,8 +44,9 @@ const Sidebar = () => {
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
+            backgroundColor: { xs: theme.palette.background.default, lg: 'transparent' },
           }}>
-          <IconButton size="large" color="inherit" sx={{ display: { xs: 'flex', md: 'none' } }} onClick={toggleIsOpen}>
+          <IconButton size="large" color="inherit" sx={{ display: { xs: 'flex', lg: 'none' } }} onClick={toggleIsOpen}>
             <ArrowBackIosNewIcon />
           </IconButton>
         </Toolbar>

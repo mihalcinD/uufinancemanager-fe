@@ -22,10 +22,10 @@ const Header = () => {
       <Toolbar
         sx={{
           display: 'flex',
-          justifyContent: { xs: 'space-between', md: 'flex-end' },
+          justifyContent: { xs: 'space-between', lg: 'flex-end' },
           alignItems: 'center',
         }}>
-        <IconButton size="large" color="inherit" sx={{ display: { xs: 'flex', md: 'none' } }} onClick={toggleIsOpen}>
+        <IconButton size="large" color="inherit" sx={{ display: { xs: 'flex', lg: 'none' } }} onClick={toggleIsOpen}>
           <MenuIcon />
         </IconButton>
         <IconButton

@@ -8,7 +8,7 @@ const VERTICAL_PADDING = 5;
 
 const ContentWrapper = ({ children }: Props) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} px={HORIZONTAL_PADDING} py={VERTICAL_PADDING} pl={{ md: 43 }}>
+    <Box display={'flex'} flexDirection={'column'} px={HORIZONTAL_PADDING} py={VERTICAL_PADDING} pl={{ lg: 43 }}>
       {children}
     </Box>
   );

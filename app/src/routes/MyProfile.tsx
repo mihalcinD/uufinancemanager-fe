@@ -56,7 +56,7 @@ const MyProfile = () => {
 
   return (
     <ContentWrapper>
-      <Box display={'flex'} flexDirection={'column'} gap={2} alignItems={'center'}>
+      <Box display={'flex'} flexDirection={'column'} gap={3} alignItems={'center'}>
         <Collapse in={open}>
           <Alert
             action={
