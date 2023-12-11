@@ -1,10 +1,33 @@
+import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { Avatar, Typography } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridToolbarQuickFilter ,
+  GridToolbarContainer,
+  GridToolbarFilterButton,
+} from '@mui/x-data-grid';
 
 import ContentWrapper from '../components/ContentWrapper.tsx';
 import CategoryById from '../components/CategoryById.tsx';
+
+interface CustomToolbarProps {
+  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+}
+
+function CustomToolbar({ setFilterButtonEl }: CustomToolbarProps) {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarFilterButton ref={setFilterButtonEl} />
+      <GridToolbarQuickFilter  />
+    </GridToolbarContainer>
+  );
+}
 
 const mockData = [
   {
@@ -31,13 +54,15 @@ const mockData = [
 const Transactions = () => {
   const { id } = useParams<{ id: string }>();
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const rows: GridRowsProp = mockData.map(item => {
     const categoryList = item.tags.slice(0, 2).map(el => CategoryById(el));
-    const member = item.creatorId.slice(0, 2);
     let result = {
       id: item.id,
       col1: new Date(item.createdAt), //Useful code for formating Dates: Date.toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' }),
-      col2: member, //TODO: Add helper to get UsernameById
+      col2: item.creatorId, //TODO: Add helper to get UsernameById
       col3: item.description,
       col4: categoryList,
       col5: item.value >= 0 ? 'Income' : 'Outgoing',
@@ -46,14 +71,15 @@ const Transactions = () => {
     return result;
   });
 
-  const columns: GridColDef[] = [
-    { field: 'col1', headerName: 'Date', minWidth: 100, type: 'date' },
+  const columnsPC: GridColDef[] = [
+    { field: 'col1', headerName: 'Date',  type: 'date',     width: 100, 
+  },
     {
       field: 'col2',
       headerName: 'Member',
-      renderCell: params => <Avatar>{params.row.col2}</Avatar>,//TODO: Use color background acordingly to letters(as in /MyProfile)
-      sortable: false,
-      filterable: false,
+      renderCell: params => <Avatar   sx={{ width: 30, height: 30 }}
+      >{params.row.col2.slice(0, 2)}</Avatar>, //TODO: Use color background acordingly to letters(as in /MyProfile)
+      width: 50,
     },
     { field: 'col3', headerName: 'Description', flex: 6 },
     { field: 'col4', headerName: 'Category', flex: 4 },
@@ -66,9 +92,16 @@ const Transactions = () => {
         params.row.col5 === 'Income' ? <div style={{ color: 'green' }}>▲</div> : <div style={{ color: 'red' }}>▼</div>,
       align: 'right',
       headerAlign: 'right',
+      width: 10,
     },
-    { field: 'col6', headerName: 'Amount', type: 'number', align: 'left', headerAlign: 'left' },
+    { field: 'col6', headerName: 'Amount', type: 'number', align: 'left', headerAlign: 'left', width: 60 },
   ];
+
+  let mobileColumns = [...columnsPC];
+  mobileColumns.splice(2, 1);
+
+  const [filterButtonEl, setFilterButtonEl] = React.useState<HTMLButtonElement | null>(null);
+
   return (
     <ContentWrapper>
       <Typography variant={'h2'} fontWeight={800} marginBottom={2}>
@@ -76,12 +109,24 @@ const Transactions = () => {
       </Typography>
       <div style={{ width: '100%' }}>
         <DataGrid
+          sx={{
+            '& .MuiDataGrid-columnHeaders': { display: 'none' },
+          }}
           rows={rows}
-          columns={columns}
-          slots={{ toolbar: GridToolbar }}
+          columns={isMobile ? mobileColumns : columnsPC}
+          slots={{ toolbar: CustomToolbar }}
           slotProps={{
+            panel: {
+              anchorEl: filterButtonEl,
+            },
             toolbar: {
-              showQuickFilter: true,
+              setFilterButtonEl,
+
+            },
+          }}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'col1', sort: 'desc' }],
             },
           }}
           autoHeight
