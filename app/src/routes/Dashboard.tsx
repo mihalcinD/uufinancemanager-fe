@@ -20,7 +20,7 @@ const Dashboard = () => {
     <ContentWrapper>
       <Grid container rowSpacing={GRID_SPACING} columnSpacing={GRID_SPACING}>
         <Grid xs={12} md={6}>
-          <BalanceCard isLoading={isLoading} />
+          <BalanceCard isLoading={isLoading} balance={households && households[active].balance} />
         </Grid>
         <Grid xs={12} md={6}>
           <Box height={300} display={'flex'} flex={1} flexDirection={'column'} gap={GRID_SPACING}>
