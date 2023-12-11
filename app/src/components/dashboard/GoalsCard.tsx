@@ -3,7 +3,7 @@ import { Paper, Skeleton } from '@mui/material';
 type Props = {
   isLoading?: boolean;
 };
-const BalanceCard = ({ isLoading }: Props) => {
+const GoalsCard = ({ isLoading }: Props) => {
   return (
     <>
       {isLoading ? (
@@ -15,4 +15,4 @@ const BalanceCard = ({ isLoading }: Props) => {
   );
 };
 
-export default BalanceCard;
+export default GoalsCard;
