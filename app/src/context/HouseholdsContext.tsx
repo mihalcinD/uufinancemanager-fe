@@ -19,7 +19,7 @@ const mockHouseholds = [
     ],
     statistics: {
       week: {
-        overall_balance: 1434.65,
+        overall_balance: 7434.59,
         values: [
           { date: '2023-12-10', balance: 110100 },
           { date: '2023-12-11', balance: 102300 },
@@ -31,7 +31,7 @@ const mockHouseholds = [
         ],
       },
       moth: {
-        overall_balance: 1434.65,
+        overall_balance: 144.65,
         values: [
           { date: '2023-12-10', balance: 110100 },
           { date: '2023-12-11', balance: 102300 },
@@ -66,7 +66,7 @@ const mockHouseholds = [
     ],
     statistics: {
       week: {
-        overall_balance: 1434.65,
+        overall_balance: 1134.65,
         values: [
           { date: '2023-12-10', balance: 110100 },
           { date: '2023-12-11', balance: 102300 },
@@ -78,7 +78,7 @@ const mockHouseholds = [
         ],
       },
       moth: {
-        overall_balance: 1434.65,
+        overall_balance: 934.65,
         values: [
           { date: '2023-12-10', balance: 110100 },
           { date: '2023-12-11', balance: 102300 },
@@ -125,7 +125,7 @@ const mockHouseholds = [
         ],
       },
       moth: {
-        overall_balance: 1434.65,
+        overall_balance: 1334.65,
         values: [
           { date: '2023-12-10', balance: 110100 },
           { date: '2023-12-11', balance: 102300 },

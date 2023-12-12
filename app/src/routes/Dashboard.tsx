@@ -24,7 +24,10 @@ const Dashboard = () => {
         </Grid>
         <Grid xs={12} md={6}>
           <Box height={300} display={'flex'} flex={1} flexDirection={'column'} gap={GRID_SPACING}>
-            <StatisticsCard isLoading={isLoading} />
+            <StatisticsCard
+              isLoading={isLoading}
+              overall={households && households[active].statistics.week.overall_balance}
+            />
             <Box display={'flex'} flex={1} gap={GRID_SPACING}>
               <MovementsCard isLoading={isLoading} income value={households && households[active].incomes} />
               <MovementsCard isLoading={isLoading} value={households && households[active].expenses} />
