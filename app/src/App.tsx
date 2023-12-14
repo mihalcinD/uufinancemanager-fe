@@ -9,10 +9,15 @@ import FamilySettings from './routes/FamilySettings.tsx';
 import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
 import Layout from './components/Layout.tsx';
+import {useEffect} from "react";
 
 function App() {
-  const { isAuthenticated, isLoading } = useAuth0();
-
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+    useEffect(() => {
+        isAuthenticated && getAccessTokenSilently().then(v=>{
+            console.debug("token: ", v)
+        })
+    }, [isAuthenticated]);
   return (
     <BrowserRouter>
       <Routes>

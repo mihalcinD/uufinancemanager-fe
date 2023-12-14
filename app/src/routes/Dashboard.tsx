@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Paper, Skeleton, useTheme } from '@mui/material';
 import ContentWrapper from '../components/ContentWrapper.tsx';
@@ -35,7 +35,7 @@ const Dashboard = () => {
           </Box>
         </Grid>
         <Grid xs={12} md={6} lg={4}>
-          <TransactionsCard isLoading={isLoading} />
+           <TransactionsCard isLoading={isLoading} />
         </Grid>
         <Grid xs={12} md={6} lg={4}>
           <GoalsCard isLoading={isLoading} />
