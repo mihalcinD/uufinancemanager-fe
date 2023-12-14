@@ -1,12 +1,14 @@
 import { Box, Paper, Skeleton, Typography, Button } from '@mui/material';
 import Graph from '../../assets/img/graph_mock.png';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   isLoading?: boolean;
   overall?: number;
 };
 const StatisticsCard = ({ isLoading, overall }: Props) => {
+  const navigate = useNavigate();
   return (
     <>
       {isLoading ? (
@@ -52,7 +54,12 @@ const StatisticsCard = ({ isLoading, overall }: Props) => {
             <Typography variant="h4" color="rgba(255,255,255,0.5)" fontWeight={700}>
               Statistics
             </Typography>
-            <Button variant={'text'} color={'inherit'}>
+            <Button
+              variant={'text'}
+              color={'inherit'}
+              onClick={() => {
+                navigate('/' + 1 + '/statistics');
+              }}>
               <Typography color="inherit" fontWeight={700}>
                 Show more
               </Typography>
