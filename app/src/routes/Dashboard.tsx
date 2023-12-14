@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Paper, useTheme } from '@mui/material';
 import ContentWrapper from '../components/ContentWrapper.tsx';
@@ -24,7 +24,9 @@ const Dashboard = () => {
           </Box>
         </Grid>
         <Grid xs={12} md={6} lg={4}>
-          <Paper elevation={8} sx={{ display: 'flex', flex: 1, height: 300 }} />
+          <Paper elevation={8} sx={{ display: 'flex', flex: 1, height: 300 }}>
+            <Link to={"/3/statistics"} style={{color: "white"}}>Statistika</Link>
+          </Paper>
         </Grid>
         <Grid xs={12} md={6} lg={4}>
           <Paper elevation={8} sx={{ display: 'flex', flex: 1, height: 300 }} />
