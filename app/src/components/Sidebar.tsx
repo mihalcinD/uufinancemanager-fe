@@ -59,21 +59,22 @@ const Sidebar = () => {
             Households
           </ListSubheader>
         }>
-        {households.map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-              selected={index === active}
-              onClick={() => {
-                navigate(index + 1 + '/dashboard');
-                setActive(index);
-              }}>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} color={'inherit'} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {households &&
+          households.map((household, index) => (
+            <ListItem key={household.id} disablePadding>
+              <ListItemButton
+                selected={index === active}
+                onClick={() => {
+                  navigate(index + 1 + '/dashboard');
+                  setActive(index);
+                }}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary={household.name} color={'inherit'} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Drawer>
   );
