@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, JSX, useState } from 'react';
+import { createContext, useContext, useEffect, JSX, useState } from 'react';
 
 const mockHouseholds = [
   {
