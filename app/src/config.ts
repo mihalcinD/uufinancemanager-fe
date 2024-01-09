@@ -1,3 +1,3 @@
 export const config = {
-  domain: 'http://localhost:3000/',
+  domain: 'https://test-bifj.onrender.com/',
 };

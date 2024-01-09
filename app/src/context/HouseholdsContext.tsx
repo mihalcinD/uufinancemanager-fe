@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, JSX, useState } from 'react';
+import useGet from '../hooks/api/crud/useGet.ts';
 
 const mockHouseholds = [
   {
@@ -163,10 +164,14 @@ export const HouseholdsContext = createContext<HouseholdsContextType>(undefined!
 export const HouseholdsProvider = ({ children }: Props) => {
   const [households, setHouseholds] = useState(mockHouseholds);
   const [active, setActive] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { data, isLoading, refresh } = useGet({ url: '/households/list' });
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 4000);
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
+    refresh();
   }, []);
 
   return (
