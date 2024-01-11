@@ -10,7 +10,6 @@ import {
   AppBar,
   IconButton,
   useTheme,
-  Divider,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHouseholdsContext } from '../context/HouseholdsContext.tsx';
@@ -61,11 +60,11 @@ const Sidebar = () => {
         }>
         {households &&
           households.map((household, index) => (
-            <ListItem key={household.id} disablePadding>
+            <ListItem key={household._id} disablePadding>
               <ListItemButton
                 selected={index === active}
                 onClick={() => {
-                  navigate(index + 1 + '/dashboard');
+                  navigate(household._id + '/dashboard');
                   setActive(index);
                 }}>
                 <ListItemIcon>

@@ -9,15 +9,10 @@ import FamilySettings from './routes/FamilySettings.tsx';
 import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
 import Layout from './components/Layout.tsx';
-import {useEffect} from "react";
 
 function App() {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-    useEffect(() => {
-        isAuthenticated && getAccessTokenSilently().then(v=>{
-            console.debug("token: ", v)
-        })
-    }, [isAuthenticated]);
+  const { isAuthenticated, isLoading } = useAuth0();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -31,7 +26,7 @@ function App() {
             <Route path={'/:id/saving-goals'} element={<SavingGoals />} />
             <Route path={'/:id/settings'} element={<FamilySettings />} />
             <Route path={'/me'} element={<MyProfile />} />
-            <Route path={'/*'} element={<Navigate to={`/${1}/dashboard`} />} />
+            <Route path={'/*'} element={<Navigate to={`/${undefined}/dashboard`} />} />
           </Route>
         ) : (
           <Route path={'/*'} element={<Login />} />

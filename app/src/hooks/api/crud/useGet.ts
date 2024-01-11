@@ -11,7 +11,7 @@ type Props = {
 };
 const useGet = <T>({ url, params, cache }: Props) => {
   const { axios } = useApiContext();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<T>();
   const [error, setError] = useState<ResponseError>();
 
