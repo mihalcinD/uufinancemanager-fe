@@ -12,6 +12,7 @@ type HouseholdsContextType = {
   active: string | undefined;
   setActive: (id: string) => void;
   isLoading: boolean;
+  refresh: () => Promise<void>;
 };
 
 export const useHouseholdsContext = () => {
@@ -48,7 +49,7 @@ export const HouseholdsProvider = ({ children }: Props) => {
   }, []);
 
   return (
-    <HouseholdsContext.Provider value={{ households, active, setActive, isLoading }}>
+    <HouseholdsContext.Provider value={{ households, active, setActive, isLoading, refresh }}>
       {children}
     </HouseholdsContext.Provider>
   );
