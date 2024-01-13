@@ -20,8 +20,8 @@ function App() {
           <Route path={'/*'} element={<Loading />} />
         ) : isAuthenticated ? (
           <Route element={<Layout />}>
-            {['/:id/dashboard', '/'].map(path => (
-              <Route path={path} element={<Dashboard />} />
+            {['/:id/dashboard', '/'].map((path, index) => (
+              <Route path={path} element={<Dashboard />} key={index} />
             ))}
             <Route path={'/:id/statistics'} element={<Statistics />} />
             <Route path={'/:id/transactions'} element={<Transactions />} />

@@ -61,8 +61,8 @@ const Sidebar = () => {
         }>
         {isLoading ? (
           <>
-            {[1, 2].map(() => (
-              <Skeleton variant="rectangular" sx={{ mb: 1 }} height={48} />
+            {[1, 2].map((_, index) => (
+              <Skeleton variant="rectangular" sx={{ mb: 1 }} height={48} key={index} />
             ))}
           </>
         ) : (
