@@ -37,11 +37,11 @@ const useGet = <T>({ url, params, cache }: Props) => {
     );
   };
 
-  const refetch = () => {
+  const refresh = () => {
     get();
   };
 
-  return { isLoading, data, error, get, refetch, setData };
+  return { isLoading, data, error, get, refresh, setData };
 };
 
 export default useGet;

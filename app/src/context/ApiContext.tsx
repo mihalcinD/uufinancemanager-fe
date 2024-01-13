@@ -19,7 +19,7 @@ export const useApiContext = () => {
 export const ApiContext = createContext<ApiContextType>(undefined!);
 
 export const ApiProvider = ({ children }: Props) => {
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const BASE_URL = config.domain;
 
   const axiosConfig: AxiosRequestConfig = {
@@ -32,16 +32,14 @@ export const ApiProvider = ({ children }: Props) => {
 
   const axiosInstance = useMemo(() => {
     //here we can configure caching properties for axios
-    return setupCache(axios.create(axiosConfig));
+    return setupCache(axios.create(axiosConfig), { ttl: 0 });
   }, []);
 
   useEffect(() => {
     axiosInstance.interceptors.request.use(async config => {
-      if (!isAuthenticated) {
-        const token = await getAccessTokenSilently();
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
+      const token = await getAccessTokenSilently();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
       }
       config.baseURL = BASE_URL;
       return config;
