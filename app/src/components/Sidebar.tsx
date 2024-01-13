@@ -70,10 +70,10 @@ const Sidebar = () => {
           households.map((household, index) => (
             <ListItem key={household._id} disablePadding>
               <ListItemButton
-                selected={index === active}
+                selected={household._id === active}
                 onClick={() => {
                   navigate(household._id + '/dashboard');
-                  setActive(index);
+                  setActive(household._id);
                 }}>
                 <ListItemIcon>
                   <HomeIcon />

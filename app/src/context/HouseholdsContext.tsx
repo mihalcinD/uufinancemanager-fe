@@ -9,8 +9,8 @@ type Props = {
 
 type HouseholdsContextType = {
   households: HouseholdsResponse | undefined;
-  active: number;
-  setActive: (index: number) => void;
+  active: string | undefined;
+  setActive: (id: string) => void;
   isLoading: boolean;
 };
 
@@ -21,14 +21,14 @@ export const useHouseholdsContext = () => {
 export const HouseholdsContext = createContext<HouseholdsContextType>(undefined!);
 
 export const HouseholdsProvider = ({ children }: Props) => {
-  const [active, setActive] = useState<number>(0);
+  const [active, setActive] = useState<string>();
   const { data, isLoading, refresh } = useGet<HouseholdsResponse>({ url: '/household/list' });
   const navigate = useNavigate();
 
   useEffect(() => {
     if (data && data.length > 0) {
-      setActive(0);
-      navigate(`${data[0]._id}/dashboard/`);
+      setActive(data[0]._id);
+      navigate(`${data[0]._id}/dashboard`);
     }
   }, [data]);
 
