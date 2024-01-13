@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box } from '@mui/material';
 import ContentWrapper from '../components/ContentWrapper.tsx';
@@ -8,12 +7,11 @@ import MovementsCard from '../components/dashboard/MovementsCard.tsx';
 import TransactionsCard from '../components/dashboard/TransactionsCard.tsx';
 import GoalsCard from '../components/dashboard/GoalsCard.tsx';
 import MembersCard from '../components/dashboard/MembersCard.tsx';
-import useHousehold from '../hooks/api/useHousehold.ts';
+import { useHouseholdContext } from '../context/HouseholdContext.tsx';
 
 const GRID_SPACING = 2.5;
 const Dashboard = () => {
-  const { id } = useParams<{ id: string | undefined }>();
-  const { household, isLoading } = useHousehold({ id });
+  const { household, isLoading } = useHouseholdContext();
 
   return (
     <ContentWrapper>
