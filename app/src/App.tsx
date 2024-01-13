@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Login from './routes/Login.tsx';
 import Dashboard from './routes/Dashboard.tsx';
@@ -9,15 +9,10 @@ import FamilySettings from './routes/FamilySettings.tsx';
 import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
 import Layout from './components/Layout.tsx';
-import {useEffect} from "react";
 
 function App() {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-    useEffect(() => {
-        isAuthenticated && getAccessTokenSilently().then(v=>{
-            console.debug("token: ", v)
-        })
-    }, [isAuthenticated]);
+  const { isAuthenticated, isLoading } = useAuth0();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -25,13 +20,14 @@ function App() {
           <Route path={'/*'} element={<Loading />} />
         ) : isAuthenticated ? (
           <Route element={<Layout />}>
-            <Route path={'/:id/dashboard'} element={<Dashboard />} />
+            {['/:id/dashboard', '/'].map(path => (
+              <Route path={path} element={<Dashboard />} />
+            ))}
             <Route path={'/:id/statistics'} element={<Statistics />} />
             <Route path={'/:id/transactions'} element={<Transactions />} />
             <Route path={'/:id/saving-goals'} element={<SavingGoals />} />
             <Route path={'/:id/settings'} element={<FamilySettings />} />
             <Route path={'/me'} element={<MyProfile />} />
-            <Route path={'/*'} element={<Navigate to={`/${1}/dashboard`} />} />
           </Route>
         ) : (
           <Route path={'/*'} element={<Login />} />
