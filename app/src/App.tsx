@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Login from './routes/Login.tsx';
 import Dashboard from './routes/Dashboard.tsx';
@@ -20,13 +20,14 @@ function App() {
           <Route path={'/*'} element={<Loading />} />
         ) : isAuthenticated ? (
           <Route element={<Layout />}>
-            <Route path={'/:id/dashboard'} element={<Dashboard />} />
+            {['/:id/dashboard', '/'].map(path => (
+              <Route path={path} element={<Dashboard />} />
+            ))}
             <Route path={'/:id/statistics'} element={<Statistics />} />
             <Route path={'/:id/transactions'} element={<Transactions />} />
             <Route path={'/:id/saving-goals'} element={<SavingGoals />} />
             <Route path={'/:id/settings'} element={<FamilySettings />} />
             <Route path={'/me'} element={<MyProfile />} />
-            <Route path={'/*'} element={<Navigate to={`/${undefined}/dashboard`} />} />
           </Route>
         ) : (
           <Route path={'/*'} element={<Login />} />
