@@ -21,23 +21,34 @@ export const useHouseholdsContext = () => {
 export const HouseholdsContext = createContext<HouseholdsContextType>(undefined!);
 
 export const HouseholdsProvider = ({ children }: Props) => {
-  const [active, setActive] = useState<string>();
-  const { data, isLoading, refresh } = useGet<HouseholdsResponse>({ url: '/household/list' });
+  const [active, _setActive] = useState<string>();
+  const { isLoading, get } = useGet<HouseholdsResponse>({ url: '/household/list' });
+  const [households, setHouseholds] = useState<HouseholdsResponse>();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setActive(data[0]._id);
-      navigate(`${data[0]._id}/dashboard`);
+  const refresh = async () => {
+    const _households = await get();
+    if (_households) {
+      setHouseholds(_households);
     }
-  }, [data]);
+  };
+  const setActive = (id: string) => {
+    _setActive(id);
+    navigate(`${id}/dashboard`);
+  };
+
+  useEffect(() => {
+    if (households && households.length > 0 && !active) {
+      setActive(households[0]._id);
+    }
+  }, [households]);
 
   useEffect(() => {
     refresh();
   }, []);
 
   return (
-    <HouseholdsContext.Provider value={{ households: data, active, setActive, isLoading }}>
+    <HouseholdsContext.Provider value={{ households, active, setActive, isLoading }}>
       {children}
     </HouseholdsContext.Provider>
   );
