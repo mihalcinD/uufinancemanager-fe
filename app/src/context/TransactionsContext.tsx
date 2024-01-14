@@ -22,7 +22,7 @@ export const TransactionsProvider = ({ children }: Props) => {
   const { id } = useParams<{ id: string | undefined }>();
   const { get, isLoading } = useGet<TransactionsResponse>({
     url: '/transaction/list',
-    params: { parentId: id, limit: 100 },
+    params: { parentId: id },
   });
   const [transactions, setTransactions] = useState<TransactionsResponse>();
 
