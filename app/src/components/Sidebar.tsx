@@ -11,6 +11,7 @@ import {
   IconButton,
   useTheme,
   Skeleton,
+  Box,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHouseholdsContext } from '../context/HouseholdsContext.tsx';
@@ -18,6 +19,7 @@ import { useDrawerContext } from '../context/DrawerContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import AddHouseholdButton from './AddHouseholdButton.tsx';
 const Sidebar = () => {
   const { households, setActive, active, isLoading } = useHouseholdsContext();
   const { isOpen } = useDrawerContext();
@@ -56,13 +58,16 @@ const Sidebar = () => {
         sx={{ marginTop: 2 }}
         subheader={
           <ListSubheader sx={{ fontSize: '1.5rem', fontWeight: 'bold', backgroundColor: 'transparent' }}>
-            Households
+            <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+              Households
+              <AddHouseholdButton />
+            </Box>
           </ListSubheader>
         }>
         {isLoading ? (
           <>
-            {[1, 2].map(() => (
-              <Skeleton variant="rectangular" sx={{ mb: 1 }} height={48} />
+            {[1, 2].map((_, index) => (
+              <Skeleton variant="rectangular" sx={{ mb: 1 }} height={48} key={index} />
             ))}
           </>
         ) : (
@@ -70,10 +75,10 @@ const Sidebar = () => {
           households.map((household, index) => (
             <ListItem key={household._id} disablePadding>
               <ListItemButton
-                selected={index === active}
+                selected={household._id === active}
                 onClick={() => {
                   navigate(household._id + '/dashboard');
-                  setActive(index);
+                  setActive(household._id);
                 }}>
                 <ListItemIcon>
                   <HomeIcon />

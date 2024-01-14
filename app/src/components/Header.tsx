@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { useState, MouseEvent } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';

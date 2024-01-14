@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, JSX, useState } from 'react';
 import useGet from '../hooks/api/crud/useGet.ts';
-import { HouseholdsResponse } from '../types/api/response/household.ts';
-import { useNavigate } from 'react-router-dom';
+import { HouseholdResponse, HouseholdsResponse } from '../types/api/response/household.ts';
+import { useNavigate, useParams } from 'react-router-dom';
+import usePost from '../hooks/api/crud/usePost.ts';
+import { CreateHouseholdPayload } from '../types/api/payload/household.ts';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -9,9 +11,12 @@ type Props = {
 
 type HouseholdsContextType = {
   households: HouseholdsResponse | undefined;
-  active: number;
-  setActive: (index: number) => void;
+  active: string | undefined;
+  setActive: (id: string) => void;
   isLoading: boolean;
+  refresh: () => Promise<void>;
+  createHousehold: (data: CreateHouseholdPayload) => Promise<HouseholdResponse>;
+  isCreating: boolean;
 };
 
 export const useHouseholdsContext = () => {
@@ -21,23 +26,58 @@ export const useHouseholdsContext = () => {
 export const HouseholdsContext = createContext<HouseholdsContextType>(undefined!);
 
 export const HouseholdsProvider = ({ children }: Props) => {
-  const [active, setActive] = useState<number>(0);
-  const { data, isLoading, refresh } = useGet<HouseholdsResponse>({ url: '/household/list' });
+  const { id: urlID } = useParams<{ id: string | undefined }>();
+  const [active, _setActive] = useState<string>();
+  const { isLoading, get } = useGet<HouseholdsResponse>({ url: '/household/list' });
+  const { post, isLoading: isCreating } = usePost<CreateHouseholdPayload, HouseholdResponse>({
+    url: '/household/create',
+  });
+  const [households, setHouseholds] = useState<HouseholdsResponse>();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setActive(0);
-      navigate(`${data[0]._id}/dashboard/`);
+  const refresh = async () => {
+    const _households = await get();
+    if (_households) {
+      setHouseholds(_households);
     }
-  }, [data]);
+  };
+  const setActive = (id: string) => {
+    _setActive(id);
+    navigate(`${id}/dashboard`);
+  };
+
+  const createHousehold = (data: CreateHouseholdPayload) => {
+    return new Promise<HouseholdResponse>((resolve, reject) => {
+      post(data)
+        .then(res => {
+          setHouseholds(prevState => [...(prevState ?? []), res]);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  };
+
+  useEffect(() => {
+    if (urlID) {
+      _setActive(urlID);
+    }
+  }, [urlID]);
+
+  useEffect(() => {
+    if (households && households.length > 0 && !urlID) {
+      setActive(households[0]._id);
+    }
+  }, [households]);
 
   useEffect(() => {
     refresh();
   }, []);
 
   return (
-    <HouseholdsContext.Provider value={{ households: data, active, setActive, isLoading }}>
+    <HouseholdsContext.Provider
+      value={{ households, active, setActive, isLoading, refresh, createHousehold, isCreating }}>
       {children}
     </HouseholdsContext.Provider>
   );

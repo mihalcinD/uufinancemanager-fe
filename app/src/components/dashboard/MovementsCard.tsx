@@ -19,7 +19,7 @@ const MovementsCard = ({ isLoading, income, value }: Props) => {
             elevation={8}
             sx={{ display: 'flex', flex: 1, flexDirection: 'row', px: 2, alignItems: 'center', gap: { xs: 1, md: 2 } }}>
             <ArrowDropDownCircleIcon
-              sx={{ color: income ? '#00A825' : '#BD0000', rotate: income ? '180deg' : '0deg' }}
+              sx={{ color: income ? '#27c947' : '#c92727', rotate: income ? '180deg' : '0deg' }}
               fontSize={'medium'}
             />
             <Box display={'flex'} flexDirection={'row'} gap={1} alignItems={'center'}>
