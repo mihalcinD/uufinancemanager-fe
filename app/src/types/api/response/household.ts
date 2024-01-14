@@ -8,6 +8,8 @@ type HouseholdResponse = {
   name: string;
   ownerId: string;
   membersIds: string[];
+  expenses: number;
+  incomes: number;
 };
 
 export type { HouseholdsResponse, HouseholdResponse };

@@ -23,8 +23,8 @@ const Dashboard = () => {
           <Box height={300} display={'flex'} flex={1} flexDirection={'column'} gap={GRID_SPACING}>
             <StatisticsCard isLoading={isLoading} overall={household?.balance} />
             <Box display={'flex'} flex={1} gap={GRID_SPACING}>
-              <MovementsCard isLoading={isLoading} income value={household?.balance} />
-              <MovementsCard isLoading={isLoading} value={household?.balance} />
+              <MovementsCard isLoading={isLoading} income value={household?.incomes} />
+              <MovementsCard isLoading={isLoading} value={household?.expenses} />
             </Box>
           </Box>
         </Grid>
