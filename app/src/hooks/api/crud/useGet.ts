@@ -6,7 +6,7 @@ import { useApiContext } from '../../../context/ApiContext.tsx';
 
 type Props = {
   url: string;
-  params?: Record<string, number>;
+  params?: Record<string, number | string>;
   cache?: false | Partial<CacheProperties<never, never>> | undefined;
 };
 const useGet = <T>({ url, params, cache }: Props) => {
