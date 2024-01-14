@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, JSX, useState } from 'react';
 import useGet from '../hooks/api/crud/useGet.ts';
 import { HouseholdResponse, HouseholdsResponse } from '../types/api/response/household.ts';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePost from '../hooks/api/crud/usePost.ts';
 import { CreateHouseholdPayload } from '../types/api/payload/household.ts';
 
@@ -26,6 +26,7 @@ export const useHouseholdsContext = () => {
 export const HouseholdsContext = createContext<HouseholdsContextType>(undefined!);
 
 export const HouseholdsProvider = ({ children }: Props) => {
+  const { id: urlID } = useParams<{ id: string | undefined }>();
   const [active, _setActive] = useState<string>();
   const { isLoading, get } = useGet<HouseholdsResponse>({ url: '/household/list' });
   const { post, isLoading: isCreating } = usePost<CreateHouseholdPayload, HouseholdResponse>({
@@ -59,7 +60,13 @@ export const HouseholdsProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    if (households && households.length > 0 && !active) {
+    if (urlID) {
+      _setActive(urlID);
+    }
+  }, [urlID]);
+
+  useEffect(() => {
+    if (households && households.length > 0 && !urlID) {
       setActive(households[0]._id);
     }
   }, [households]);

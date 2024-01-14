@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import useGet from '../hooks/api/crud/useGet.ts';
-import { useParams } from 'react-router-dom';
-import { TransactionsResponse } from '../types/api/response/transactions.ts';
+import { TransactionResponse, TransactionsResponse } from '../types/api/response/transactions.ts';
+import usePost from '../hooks/api/crud/usePost.ts';
+import { useHouseholdsContext } from './HouseholdsContext.tsx';
+import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +12,8 @@ type Props = {
 type TransactionsContextType = {
   transactions: TransactionsResponse | undefined;
   isLoading: boolean;
+  createTransaction: (data: CreateTransactionPayload) => Promise<TransactionResponse>;
+  isCreating: boolean;
 };
 
 export const useTransactionsContext = () => {
@@ -19,10 +23,13 @@ export const useTransactionsContext = () => {
 export const TransactionsContext = createContext<TransactionsContextType>(undefined!);
 
 export const TransactionsProvider = ({ children }: Props) => {
-  const { id } = useParams<{ id: string | undefined }>();
+  const { active } = useHouseholdsContext();
   const { get, isLoading } = useGet<TransactionsResponse>({
     url: '/transaction/list',
-    params: { parentId: id },
+    params: { parentId: active },
+  });
+  const { post, isLoading: isCreating } = usePost<CreateTransactionPayload, TransactionResponse>({
+    url: '/transaction/create',
   });
   const [transactions, setTransactions] = useState<TransactionsResponse>();
 
@@ -33,11 +40,28 @@ export const TransactionsProvider = ({ children }: Props) => {
     }
   };
 
+  const createTransaction = (data: CreateTransactionPayload) => {
+    return new Promise<TransactionResponse>((resolve, reject) => {
+      post(data)
+        .then(res => {
+          setTransactions(prevState => [...(prevState ?? []), res]);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  };
+
   useEffect(() => {
-    if (id?.length === 24) {
+    if (active) {
       refresh();
     }
-  }, [id]);
+  }, [active]);
 
-  return <TransactionsContext.Provider value={{ transactions, isLoading }}>{children}</TransactionsContext.Provider>;
+  return (
+    <TransactionsContext.Provider value={{ transactions, isLoading, createTransaction, isCreating }}>
+      {children}
+    </TransactionsContext.Provider>
+  );
 };

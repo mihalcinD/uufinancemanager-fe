@@ -1,4 +1,4 @@
-type TransactionsResponse = TransactionsResponse[];
+type TransactionsResponse = TransactionResponse[];
 
 type TransactionResponse = {
   _id: string;

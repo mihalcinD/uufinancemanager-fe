@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, JSX } from 'react';
 import useGet from '../hooks/api/crud/useGet.ts';
 import { HouseholdResponse } from '../types/api/response/household.ts';
-import { useParams } from 'react-router-dom';
+import { useHouseholdsContext } from './HouseholdsContext.tsx';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -19,14 +19,14 @@ export const useHouseholdContext = () => {
 export const HouseholdContext = createContext<HouseholdContextType>(undefined!);
 
 export const HouseholdProvider = ({ children }: Props) => {
-  const { id } = useParams<{ id: string | undefined }>();
-  const { data, refresh, isLoading } = useGet<HouseholdResponse>({ url: '/household/' + id });
+  const { active } = useHouseholdsContext();
+  const { data, refresh, isLoading } = useGet<HouseholdResponse>({ url: '/household/' + active });
 
   useEffect(() => {
-    if (id?.length === 24) {
+    if (active) {
       refresh();
     }
-  }, [id]);
+  }, [active]);
 
   return <HouseholdContext.Provider value={{ household: data, isLoading }}>{children}</HouseholdContext.Provider>;
 };
