@@ -9,10 +9,11 @@ const AddHouseholdButton = () => {
   const [name, setName] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const { createHousehold } = useHouseholdsContext();
-  const onSubmit = async () => {
+  const onSubmit = () => {
     if (name.length > 0) {
-      await createHousehold({ name });
-      setOpenModal(false);
+      createHousehold({ name })
+        .then(() => setOpenModal(false))
+        .catch(() => setError(true));
     } else {
       setError(true);
     }
@@ -21,8 +22,8 @@ const AddHouseholdButton = () => {
     <>
       <IconButton
         size="small"
-        aria-label="Home page"
-        aria-controls="menu-appbar"
+        aria-label="Create household"
+        aria-controls="create-household-modal"
         aria-haspopup="true"
         color="inherit"
         onClick={() => setOpenModal(true)}>
