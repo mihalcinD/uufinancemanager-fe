@@ -4,7 +4,7 @@ import ContentWrapper from '../components/ContentWrapper.tsx';
 import BalanceCard from '../components/dashboard/BalanceCard.tsx';
 import StatisticsCard from '../components/dashboard/StatisticsCard.tsx';
 import MovementsCard from '../components/dashboard/MovementsCard.tsx';
-import TransactionsCard from '../components/dashboard/TransactionsCard.tsx';
+import TransactionsCard from '../components/dashboard/TransactionsCard/TransactionsCard.tsx';
 import GoalsCard from '../components/dashboard/GoalsCard.tsx';
 import MembersCard from '../components/dashboard/MembersCard.tsx';
 import { useHouseholdContext } from '../context/HouseholdContext.tsx';
@@ -29,7 +29,7 @@ const Dashboard = () => {
           </Box>
         </Grid>
         <Grid xs={12} md={6} lg={4}>
-          <TransactionsCard isLoading={isLoading} />
+          <TransactionsCard />
         </Grid>
         <Grid xs={12} md={6} lg={4}>
           <GoalsCard isLoading={isLoading} />
