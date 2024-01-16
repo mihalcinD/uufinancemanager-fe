@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box } from '@mui/material';
 import ContentWrapper from '../components/ContentWrapper.tsx';
-import BalanceCard from '../components/dashboard/BalanceCard.tsx';
+import BalanceCard from '../components/dashboard/BalanceCard/BalanceCard.tsx';
 import StatisticsCard from '../components/dashboard/StatisticsCard.tsx';
 import MovementsCard from '../components/dashboard/MovementsCard.tsx';
 import TransactionsCard from '../components/dashboard/TransactionsCard/TransactionsCard.tsx';

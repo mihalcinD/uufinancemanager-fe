@@ -12,7 +12,7 @@ type Props = {
 type TransactionsContextType = {
   transactions: TransactionsResponse | undefined;
   isLoading: boolean;
-  createTransaction: (data: CreateTransactionPayload) => Promise<TransactionResponse>;
+  createTransaction: (data: Omit<CreateTransactionPayload, 'parentId'>) => Promise<TransactionResponse>;
   isCreating: boolean;
 };
 
@@ -40,9 +40,9 @@ export const TransactionsProvider = ({ children }: Props) => {
     }
   };
 
-  const createTransaction = (data: CreateTransactionPayload) => {
+  const createTransaction = (data: Omit<CreateTransactionPayload, 'parentId'>) => {
     return new Promise<TransactionResponse>((resolve, reject) => {
-      post(data)
+      post({ ...data, parentId: active as string })
         .then(res => {
           setTransactions(prevState => [...(prevState ?? []), res]);
           resolve(res);

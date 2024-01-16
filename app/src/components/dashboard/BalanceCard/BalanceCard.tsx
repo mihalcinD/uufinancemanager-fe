@@ -1,7 +1,8 @@
-import { Box, Button, Paper, Skeleton, Typography } from '@mui/material';
+import { Box, Paper, Skeleton, Typography } from '@mui/material';
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import AddTransactionButton from './AddTransactionButton.tsx';
 
 type Props = {
   isLoading?: boolean;
@@ -47,11 +48,7 @@ const BalanceCard = ({ isLoading, balance }: Props) => {
             <Typography variant="h4" color="rgba(255,255,255,0.5)" fontWeight={700}>
               Balance
             </Typography>
-            <Button variant={'contained'} color={'inherit'}>
-              <Typography color="inherit" fontWeight={700}>
-                Add transaction
-              </Typography>
-            </Button>
+            <AddTransactionButton />
           </Box>
         </Paper>
       )}
