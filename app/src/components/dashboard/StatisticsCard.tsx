@@ -2,6 +2,7 @@ import { Box, Paper, Skeleton, Typography, Button } from '@mui/material';
 import Graph from '../../assets/img/graph_mock.png';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { useNavigate } from 'react-router-dom';
+import { useHouseholdsContext } from '../../context/HouseholdsContext';
 
 type Props = {
   isLoading?: boolean;
@@ -10,6 +11,7 @@ type Props = {
 };
 const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
   const navigate = useNavigate();
+  const { active } = useHouseholdsContext();
   return (
     <>
       {isLoading ? (
@@ -59,7 +61,7 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
               variant={'text'}
               color={'inherit'}
               onClick={() => {
-                navigate('/' + householdId + '/statistics');
+                navigate('/' + active + '/statistics');
               }}>
               <Typography color="inherit" fontWeight={700}>
                 Show more

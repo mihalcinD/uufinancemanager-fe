@@ -6,6 +6,8 @@ type TransactionResponse = {
   description: string;
   parentId: string;
   creatorId: string;
+  createdAt: number;
+  updatedAt: number;
 };
 
 export type { TransactionsResponse, TransactionResponse };
