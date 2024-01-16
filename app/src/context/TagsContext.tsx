@@ -44,7 +44,7 @@ export const TagsProvider = ({ children }: Props) => {
     return new Promise<TagResponse>((resolve, reject) => {
       post({ ...data, householdId: active as string })
         .then(res => {
-          setTags(prevState => [...(prevState ?? []), res]);
+          setTags(prevState => [res, ...(prevState ?? [])]);
           resolve(res);
         })
         .catch(err => {
