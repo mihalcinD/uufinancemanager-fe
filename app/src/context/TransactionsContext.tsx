@@ -36,7 +36,7 @@ export const TransactionsProvider = ({ children }: Props) => {
   const refresh = async () => {
     const _transactions = await get();
     if (_transactions) {
-      setTransactions(_transactions);
+      setTransactions(_transactions.sort((a, b) => b.createdAt - a.createdAt));
     }
   };
 
@@ -44,7 +44,7 @@ export const TransactionsProvider = ({ children }: Props) => {
     return new Promise<TransactionResponse>((resolve, reject) => {
       post({ ...data, parentId: active as string })
         .then(res => {
-          setTransactions(prevState => [...(prevState ?? []), res]);
+          setTransactions(prevState => [res, ...(prevState ?? [])]);
           resolve(res);
         })
         .catch(err => {
