@@ -12,4 +12,6 @@ type HouseholdResponse = {
   incomes: number;
 };
 
-export type { HouseholdsResponse, HouseholdResponse };
+type HouseholdStatisticsResponse = { _id: string; y: number }[];
+
+export type { HouseholdsResponse, HouseholdResponse, HouseholdStatisticsResponse };

@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 type Props = {
   isLoading?: boolean;
   overall?: number;
+  householdId?: string;
 };
-const StatisticsCard = ({ isLoading, overall }: Props) => {
+const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
   const navigate = useNavigate();
   return (
     <>
@@ -58,7 +59,7 @@ const StatisticsCard = ({ isLoading, overall }: Props) => {
               variant={'text'}
               color={'inherit'}
               onClick={() => {
-                navigate('/' + 1 + '/statistics');
+                navigate('/' + householdId + '/statistics');
               }}>
               <Typography color="inherit" fontWeight={700}>
                 Show more
