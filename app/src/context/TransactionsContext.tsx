@@ -4,6 +4,7 @@ import { TransactionResponse, TransactionsResponse } from '../types/api/response
 import usePost from '../hooks/api/crud/usePost.ts';
 import { useHouseholdsContext } from './HouseholdsContext.tsx';
 import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
+import { useHouseholdContext } from './HouseholdContext.tsx';
 
 type Props = {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export const TransactionsContext = createContext<TransactionsContextType>(undefi
 
 export const TransactionsProvider = ({ children }: Props) => {
   const { active } = useHouseholdsContext();
+  const { updateBalance } = useHouseholdContext();
   const { get, isLoading } = useGet<TransactionsResponse>({
     url: '/transaction/list',
     params: { parentId: active },
@@ -44,6 +46,7 @@ export const TransactionsProvider = ({ children }: Props) => {
     return new Promise<TransactionResponse>((resolve, reject) => {
       post({ ...data, parentId: active as string })
         .then(res => {
+          updateBalance(res.value);
           setTransactions(prevState => [res, ...(prevState ?? [])]);
           resolve(res);
         })
