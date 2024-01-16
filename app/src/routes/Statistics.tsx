@@ -7,6 +7,7 @@ import { IncomeChart } from '../components/statistics/incomeChart.tsx';
 import Grid from '@mui/material/Unstable_Grid2';
 import useAnalytics from '../hooks/api/useAnalytics.ts';
 import { useParams } from 'react-router-dom';
+import useStatistics from '../hooks/api/useStatistics.ts';
 
 export interface StatisticsPageProsp {}
 
@@ -15,7 +16,24 @@ const Statistics = ({}: StatisticsPageProsp) => {
   const [timePeriodFilter, setTimePeriodFilter] = useState<-1 | 7 | 30 | 90>(-1);
   const [memberFilter, setMemberFilter] = useState<string>('all');
   const [tagFilter, setTagFilter] = useState<string>('all');
+
   const { data: balanceData } = useAnalytics({ parentId: id, period: timePeriodFilter });
+
+  const { data: incomeData } = useStatistics({
+    parentId: id,
+    positive: true,
+    period: timePeriodFilter,
+    userId: memberFilter === 'all' ? undefined : memberFilter,
+    tagId: tagFilter === 'all' ? undefined : tagFilter,
+  });
+  const { data: outcomeData } = useStatistics({
+    parentId: id,
+    positive: false,
+    period: timePeriodFilter,
+    userId: memberFilter === 'all' ? undefined : memberFilter,
+    tagId: tagFilter === 'all' ? undefined : tagFilter,
+  });
+
   return (
     <>
       <Container maxWidth={'md'}>
@@ -51,9 +69,8 @@ const Statistics = ({}: StatisticsPageProsp) => {
                 }}
                 onChange={e => setMemberFilter(e.target.value)}>
                 <MenuItem value={'all'}>všichni</MenuItem>
-                <MenuItem value={'Jakub'}>Jakub</MenuItem>
-                <MenuItem value={'Tary'}>Tary</MenuItem>
-                <MenuItem value={'David'}>David</MenuItem>
+                <MenuItem value={'google-oauth2|100723981934961506649'}>Jakub</MenuItem>
+                <MenuItem value={'auth0|65561c19acfca2fa0a102bb5'}>Test user</MenuItem>
               </Select>
             </Stack>
             <Stack spacing={0.5}>
@@ -68,9 +85,8 @@ const Statistics = ({}: StatisticsPageProsp) => {
                 }}
                 onChange={e => setTagFilter(e.target.value)}>
                 <MenuItem value={'all'}>všechny</MenuItem>
-                <MenuItem value={'tag1'}>Výdaje</MenuItem>
-                <MenuItem value={'tag2'}>Příjmy</MenuItem>
-                <MenuItem value={'tag3'}>Spoření</MenuItem>
+                <MenuItem value={'65a6992c9d40d6ae632b5813'}>Tag 1</MenuItem>
+                <MenuItem value={'65a6a852f557a8f074eddd9c'}>Tag 2</MenuItem>
               </Select>
             </Stack>
           </Paper>
@@ -90,7 +106,7 @@ const Statistics = ({}: StatisticsPageProsp) => {
                 <Typography fontWeight={700} fontSize={20}>
                   Income by user
                 </Typography>
-                <IncomeChart member={memberFilter} />
+                <IncomeChart inpData={incomeData} />
               </Paper>
             </Grid>
             <Grid xs={12} md={6}>
@@ -98,7 +114,7 @@ const Statistics = ({}: StatisticsPageProsp) => {
                 <Typography fontWeight={700} fontSize={20}>
                   Outcome by user
                 </Typography>
-                <IncomeChart member={memberFilter} />
+                <IncomeChart inpData={outcomeData} />
               </Paper>
             </Grid>
           </Grid>
