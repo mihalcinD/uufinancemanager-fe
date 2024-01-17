@@ -1,3 +1,3 @@
 type CreateHouseholdPayload = { name: string };
-
-export type { CreateHouseholdPayload };
+type UpdateHouseholdPayload = { id: string; name?: string; membersIds?: string[] };
+export type { CreateHouseholdPayload, UpdateHouseholdPayload };

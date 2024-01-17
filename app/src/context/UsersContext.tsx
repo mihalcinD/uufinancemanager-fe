@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useHouseholdsContext } from './HouseholdsContext';
 
-type User = {
+export type User = {
   id: string;
   name: string;
   surname: string;
@@ -11,6 +11,7 @@ type User = {
 
 type UsersContextType = {
   users: User[];
+  allUsers: User[];
   isLoading: boolean;
 };
 
@@ -59,7 +60,7 @@ export const UsersProvider = ({ children }: UsersProviderProps) => {
     setUsersInHousehold(filtered);
   }, [active, households]);
   return (
-    <UsersContext.Provider value={{ users: usersInHousehold, isLoading: false }}>{children}</UsersContext.Provider>
+    <UsersContext.Provider value={{ allUsers: users, users: usersInHousehold, isLoading: false }}>{children}</UsersContext.Provider>
   );
 };
 
