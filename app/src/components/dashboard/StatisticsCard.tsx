@@ -17,7 +17,7 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
   return (
     <>
       {isLoading ? (
-        <Skeleton variant="rounded" sx={{ display: 'flex', flex: 4 }} />
+        <Skeleton variant="rounded" sx={{ display: 'flex', height: 300 }} />
       ) : (
         <Paper
           elevation={8}
@@ -44,17 +44,17 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}></Box>
           </Box>
           <LineChart
-            xAxis={
-              [{
-                data: balanceData?.map(datum => (String(datum.x))) || [],
-                scaleType: 'point'
-              }]
-            }
-            series={
-              [{
-                data: balanceData?.map(datum => (datum.y))  || [],
-              }]
-            }
+            xAxis={[
+              {
+                data: balanceData?.map(datum => String(datum.x)) || [],
+                scaleType: 'point',
+              },
+            ]}
+            series={[
+              {
+                data: balanceData?.map(datum => datum.y) || [],
+              },
+            ]}
             height={200}
           />
           <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>

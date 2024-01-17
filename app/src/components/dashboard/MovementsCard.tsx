@@ -11,13 +11,21 @@ const MovementsCard = ({ isLoading, income, value }: Props) => {
     <>
       {isLoading ? (
         <>
-          <Skeleton variant="rounded" sx={{ display: 'flex', flex: 1, height: '100%' }} />
+          <Skeleton variant="rounded" sx={{ display: 'flex', flex: 1, height: 55 }} />
         </>
       ) : (
         <>
           <Paper
             elevation={8}
-            sx={{ display: 'flex', flex: 1, flexDirection: 'row', px: 2, alignItems: 'center', gap: { xs: 1, md: 2 } }}>
+            sx={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'row',
+              px: 2,
+              alignItems: 'center',
+              gap: { xs: 1, md: 2 },
+              minHeight: 55,
+            }}>
             <ArrowDropDownCircleIcon
               sx={{ color: income ? '#27c947' : '#c92727', rotate: income ? '180deg' : '0deg' }}
               fontSize={'medium'}

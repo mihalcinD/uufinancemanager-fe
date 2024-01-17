@@ -12,14 +12,15 @@ const BalanceCard = ({ isLoading, balance }: Props) => {
   return (
     <>
       {isLoading ? (
-        <Skeleton variant="rounded" sx={{ display: 'flex', flex: 1, height: 300 }} />
+        <Skeleton variant="rounded" sx={{ display: 'flex', flex: 1, height: 380 }} />
       ) : (
         <Paper
           elevation={8}
           sx={{
             display: 'flex',
             flex: 1,
-            height: 300,
+            height: '100%',
+            minHeight: 300,
             bgcolor: '#0082E0',
             flexDirection: 'column',
             justifyContent: 'flex-end',
