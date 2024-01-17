@@ -19,16 +19,19 @@ const MembersCard = ({ isLoading }: Props) => {
       ) : (
         <Paper elevation={8} sx={{ display: 'flex', flex: 1, p: 2, flexDirection: 'column', gap: 1 }}>
           <Typography variant={'h5'} component={'h2'} fontWeight={900}>
-            Members
+            Settings
           </Typography>
-
           <Box>
-            <Box display={'flex'} flexDirection={'row'} py={1.5} justifyContent={'space-between'}>
-              <Typography fontWeight={600}>{user?.email}</Typography>
+            <Typography component={'h2'} fontWeight={600} mb={0.5}>
+              Members
+            </Typography>
+
+            <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+              <Typography>{user?.email}</Typography>
             </Box>
             {household?.membersIds.map((memberID, index) => (
-              <Box display={'flex'} flexDirection={'row'} py={1.5} justifyContent={'space-between'}>
-                <Typography fontWeight={600}>{memberID}</Typography>
+              <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+                <Typography>{memberID}</Typography>
               </Box>
             ))}
           </Box>
@@ -40,7 +43,7 @@ const MembersCard = ({ isLoading }: Props) => {
               navigate('/' + active + '/settings');
             }}>
             <Typography color="inherit" fontWeight={700}>
-              Settings
+              Show Settings
             </Typography>
           </Button>
         </Paper>

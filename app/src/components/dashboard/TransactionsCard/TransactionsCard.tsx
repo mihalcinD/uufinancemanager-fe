@@ -19,9 +19,13 @@ const TransactionsCard = () => {
             Last Transactions
           </Typography>
           <Box>
-            {transactions
-              ?.slice(0, 5)
-              .map((transaction, index) => <TransactionItem key={index} transaction={transaction} />)}
+            {transactions && transactions.length > 0 ? (
+              transactions
+                .slice(0, 5)
+                .map((transaction, index) => <TransactionItem key={index} transaction={transaction} />)
+            ) : (
+              <Typography>No transactions yet</Typography>
+            )}
           </Box>
           <Button
             variant={'text'}

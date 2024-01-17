@@ -22,12 +22,16 @@ const GoalsCard = ({ isLoading }: Props) => {
             Saving Goals
           </Typography>
           <Box>
-            {savingGoals?.slice(0, 5).map((goal, index) => (
-              <Box display={'flex'} flexDirection={'row'} py={1.5} justifyContent={'space-between'}>
-                <Typography fontWeight={600}>{goal.name}</Typography>
-                <Typography fontWeight={400}>{(goal.currentBalance / goal.goal) * 100 + ' %'}</Typography>
-              </Box>
-            ))}
+            {savingGoals && savingGoals.length > 0 ? (
+              savingGoals.slice(0, 5).map((goal, index) => (
+                <Box display={'flex'} flexDirection={'row'} py={0.3} justifyContent={'space-between'}>
+                  <Typography fontWeight={600}>{goal.name}</Typography>
+                  <Typography fontWeight={400}>{(goal.currentBalance / goal.goal) * 100 + ' %'}</Typography>
+                </Box>
+              ))
+            ) : (
+              <Typography>No saving goals yet</Typography>
+            )}
           </Box>
           <Button
             variant={'text'}
