@@ -53,7 +53,6 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
               },
               '.MuiMarkElement-root': {
                 stroke: '#ffffff',
-
                 fill: '#fff',
                 strokeWidth: 3,
               },
