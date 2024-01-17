@@ -44,6 +44,20 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}></Box>
           </Box>
           <LineChart
+            leftAxis={null}
+            bottomAxis={null}
+            sx={{
+              '.MuiLineElement-root': {
+                stroke: '#ffffff',
+                strokeWidth: 3,
+              },
+              '.MuiMarkElement-root': {
+                stroke: '#ffffff',
+
+                fill: '#fff',
+                strokeWidth: 3,
+              },
+            }}
             xAxis={[
               {
                 data: balanceData?.map(datum => String(datum.x)) || [],
