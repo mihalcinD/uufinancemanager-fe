@@ -1,8 +1,18 @@
-import { useParams } from 'react-router-dom';
+import ContentWrapper from '../components/ContentWrapper.tsx';
+import { Typography } from '@mui/material';
+import { useTransactionsContext } from '../context/TransactionsContext.tsx';
+import TransactionsList from '../components/transactions/TransactionsList.tsx';
 
 const Transactions = () => {
-  const { id } = useParams<{ id: string }>();
-  return <>Transactions for family {id}</>;
+  const { transactions } = useTransactionsContext();
+  return (
+    <ContentWrapper>
+      <Typography variant={'h2'} fontWeight={900} p={2}>
+        Transactions
+      </Typography>
+      <TransactionsList transactions={transactions} />
+    </ContentWrapper>
+  );
 };
 
 export default Transactions;

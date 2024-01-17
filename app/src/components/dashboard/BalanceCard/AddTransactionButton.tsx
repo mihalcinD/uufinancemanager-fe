@@ -56,7 +56,7 @@ const AddTransactionButton = () => {
           Add transaction
         </Typography>
       </Button>
-      <ModalBox open={openModal} handleClose={() => setOpenModal(false)} title={'Add transaction'}>
+      <ModalBox open={openModal} handleClose={() => setOpenModal(false)} title={'Add transactions'}>
         <Box display={'flex'} flexDirection={'column'} gap={7} mt={5}>
           <ToggleButtonGroup value={transactionType} exclusive onChange={(e, value) => setTransactionType(value)}>
             <ToggleButton value={1}>Income</ToggleButton>
