@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 import { ResponseError } from '../../../types/Api.ts';
 import { useApiContext } from '../../../context/ApiContext.tsx';
+import { useSnackbar } from 'notistack';
 
 type Props = { defaultURL: string; params?: Record<string, string> };
 const usePut = <T, K>({ defaultURL, params }: Props) => {
@@ -10,6 +11,7 @@ const usePut = <T, K>({ defaultURL, params }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<K>();
   const [error, setError] = useState<ResponseError>();
+  const { enqueueSnackbar } = useSnackbar();
 
   const put = (data: T, url?: string): Promise<K> => {
     const properURL = url ?? defaultURL;
@@ -28,6 +30,7 @@ const usePut = <T, K>({ defaultURL, params }: Props) => {
           console.error('[PUT] url: ', url, res?.data, res?.status);
           setError({ message: res?.data, code: res?.status });
           setIsLoading(false);
+          enqueueSnackbar('Ups, něco se nepovedlo :(', { variant: 'error' });
           reject(res?.status);
         }),
     );

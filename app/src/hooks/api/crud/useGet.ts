@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CacheAxiosResponse, CacheProperties } from 'axios-cache-interceptor';
 import { ResponseError } from '../../../types/Api.ts';
 import { useApiContext } from '../../../context/ApiContext.tsx';
+import { useSnackbar } from 'notistack';
 
 type Props = {
   url: string;
@@ -14,6 +15,7 @@ const useGet = <T>({ url, params, cache }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<T>();
   const [error, setError] = useState<ResponseError>();
+  const { enqueueSnackbar } = useSnackbar();
 
   const get = (newParams?: Record<string, number>): Promise<T | undefined> => {
     const currentParams = newParams ?? params;
@@ -32,6 +34,7 @@ const useGet = <T>({ url, params, cache }: Props) => {
           console.error('[GET] url: ', url, response?.data, response?.status);
           setError({ message: response?.data, code: response?.status });
           setIsLoading(false);
+          enqueueSnackbar('Ups, něco se nepovedlo :(', { variant: 'error' });
           resolve(undefined);
         }),
     );
