@@ -2,8 +2,8 @@ import ContentWrapper from '../components/ContentWrapper.tsx';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useSavingGoalsContext } from '../context/SavingGoalsContext.tsx';
 import { Skeleton, Stack, Typography } from '@mui/material';
-import AddTransactionButton from '../components/transactions/AddTransactionButton.tsx';
 import SavingGoalCard from '../components/savingGoals/SavingGoalCard.tsx';
+import AddSavingGoalButton from '../components/AddSavingGoalButton.tsx';
 
 const GRID_SPACING = 2.5;
 
@@ -16,7 +16,7 @@ const SavingGoals = () => {
         <Typography variant={'h2'} fontWeight={900} p={2}>
           Saving Goals
         </Typography>
-        <AddTransactionButton />
+        <AddSavingGoalButton />
       </Stack>
       <Grid container rowSpacing={GRID_SPACING} columnSpacing={GRID_SPACING}>
         {isLoading ? (

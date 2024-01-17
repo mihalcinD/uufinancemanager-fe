@@ -18,7 +18,7 @@ const SavingGoal = () => {
     <ContentWrapper>
       <>
         {isLoading || isLoadingTransactions ? (
-          <Skeleton width={'100%'} height={400} />
+          <Skeleton width={'100%'} height={800} />
         ) : (
           savingGoal && (
             <Paper elevation={1} sx={{ width: '100%', p: 4 }}>
@@ -28,13 +28,19 @@ const SavingGoal = () => {
                 </Typography>
                 <TransferButton transfer={transferToSavingGoal} />
               </Stack>
-              <Stack direction="row" gap={2} flexWrap={'wrap'} alignItems={'center'} my={3}>
+              <Typography>{savingGoal.description}</Typography>
+              <Stack
+                direction="row"
+                gap={2}
+                flexWrap={'wrap'}
+                justifyContent={'space-between'}
+                alignItems={'center'}
+                my={3}>
                 <Typography variant={'h4'} component={'h2'} fontWeight={900}>
-                  {'CZK ' +
-                    savingGoal.currentBalance +
-                    ' | ' +
-                    Math.floor((savingGoal.currentBalance / savingGoal.goal) * 100) +
-                    ' %'}
+                  {'CZK ' + savingGoal.currentBalance + ' / CZK ' + savingGoal.goal}
+                </Typography>
+                <Typography variant={'h4'} component={'h2'} fontWeight={900}>
+                  {Math.floor((savingGoal.currentBalance / savingGoal.goal) * 100) + ' %'}
                 </Typography>
               </Stack>
               {transactions && transactions.length > 0 ? (
