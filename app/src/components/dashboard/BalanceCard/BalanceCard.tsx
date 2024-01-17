@@ -33,7 +33,7 @@ const BalanceCard = ({ isLoading, balance }: Props) => {
             </Box>
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={2}>
               <Typography variant="h3" component="h2" fontWeight={600}>
-                {'CZK ' + balance}
+                {'CZK ' + Math.abs(balance || 0)}
               </Typography>
               <Box display={'flex'} p={0.5} bgcolor={'#FFF'} borderRadius={50}>
                 {balance && balance >= 0 ? (

@@ -17,13 +17,13 @@ const GoalsCard = ({ isLoading }: Props) => {
       ) : (
         <Paper
           elevation={8}
-          sx={{ display: 'flex', flex: 1, p: 2, flexDirection: 'column', gap: 2, bgcolor: '#9a3900' }}>
+          sx={{ display: 'flex', flex: 1, p: 2, flexDirection: 'column', gap: 1, bgcolor: '#9a3900' }}>
           <Typography variant={'h5'} component={'h2'} fontWeight={900}>
             Saving Goals
           </Typography>
           <Box>
             {savingGoals?.slice(0, 5).map((goal, index) => (
-              <Box display={'flex'} flexDirection={'row'} py={2} justifyContent={'space-between'}>
+              <Box display={'flex'} flexDirection={'row'} py={1.5} justifyContent={'space-between'}>
                 <Typography fontWeight={600}>{goal.name}</Typography>
                 <Typography fontWeight={400}>{(goal.currentBalance / goal.goal) * 100 + ' %'}</Typography>
               </Box>
