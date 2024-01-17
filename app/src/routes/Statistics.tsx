@@ -8,12 +8,17 @@ import useAnalytics from '../hooks/api/useAnalytics.ts';
 import { useParams } from 'react-router-dom';
 import useStatistics from '../hooks/api/useStatistics.ts';
 import ContentWrapper from '../components/ContentWrapper.tsx';
+import { useTagsContext } from '../context/TagsContext.tsx';
+import { useUsersContext } from '../context/UsersContext.tsx';
 
 const Statistics = () => {
   const { id } = useParams<{ id: string }>();
   const [timePeriodFilter, setTimePeriodFilter] = useState<-1 | 7 | 30 | 90>(-1);
   const [memberFilter, setMemberFilter] = useState<string>('all');
+
   const [tagFilter, setTagFilter] = useState<string>('all');
+  const { tags, isLoading } = useTagsContext();
+  const { users } = useUsersContext();
 
   const { data: balanceData } = useAnalytics({ parentId: id, period: timePeriodFilter });
 
@@ -66,8 +71,10 @@ const Statistics = () => {
               }}
               onChange={e => setMemberFilter(e.target.value)}>
               <MenuItem value={'all'}>všichni</MenuItem>
-              <MenuItem value={'google-oauth2|100723981934961506649'}>Jakub</MenuItem>
-              <MenuItem value={'auth0|65561c19acfca2fa0a102bb5'}>Test user</MenuItem>
+              {users.map(user => (
+                <MenuItem value={user.id}>{user.name} {user.surname}</MenuItem>
+
+              ))}
             </Select>
           </Stack>
           <Stack spacing={0.5}>
@@ -82,8 +89,7 @@ const Statistics = () => {
               }}
               onChange={e => setTagFilter(e.target.value)}>
               <MenuItem value={'all'}>všechny</MenuItem>
-              <MenuItem value={'65a6992c9d40d6ae632b5813'}>Tag 1</MenuItem>
-              <MenuItem value={'65a6a852f557a8f074eddd9c'}>Tag 2</MenuItem>
+              {tags?.map(tag => <MenuItem value={tag._id}>{tag.name}</MenuItem>)}
             </Select>
           </Stack>
         </Paper>

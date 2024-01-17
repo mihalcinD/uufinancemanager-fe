@@ -1,6 +1,7 @@
-import { Doughnut, Line, Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { HouseholdStatisticsResponse } from '../../types/api/response/household';
+import { useUsersContext } from '../../context/UsersContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -9,16 +10,10 @@ export interface IncomeChartProps {
 }
 
 export const IncomeChart = ({ inpData }: IncomeChartProps) => {
-  /*const data = useMemo(() => {
-        return [{x: "user1", y: 2000 }, {x: "user2", y: 2000 }]
-    }, [])*/
-  const incomes = {
-    Jakub: 10,
-    Tary: 20,
-    David: 30,
-  };
+  const { users } = useUsersContext();
+
   const data = {
-    labels: inpData ? inpData.map(item=>item._id) : [],
+    labels: inpData ? inpData.map(item=>users.find(usr=> usr.id === item._id)?.name) : [],
     datasets: [
       {
         label: 'income',
