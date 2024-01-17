@@ -14,14 +14,18 @@ const TransactionsCard = () => {
       {isLoading ? (
         <Skeleton variant="rounded" sx={{ display: 'flex', flex: 1, height: 300 }} />
       ) : (
-        <Paper elevation={8} sx={{ display: 'flex', flex: 1, p: 2, flexDirection: 'column', gap: 2 }}>
+        <Paper elevation={8} sx={{ display: 'flex', flex: 1, p: 2, flexDirection: 'column', gap: 1 }}>
           <Typography variant={'h5'} component={'h2'} fontWeight={900}>
             Last Transactions
           </Typography>
           <Box>
-            {transactions
-              ?.slice(0, 5)
-              .map((transaction, index) => <TransactionItem key={index} transaction={transaction} />)}
+            {transactions && transactions.length > 0 ? (
+              transactions
+                .slice(0, 5)
+                .map((transaction, index) => <TransactionItem key={index} transaction={transaction} />)
+            ) : (
+              <Typography>No transactions yet</Typography>
+            )}
           </Box>
           <Button
             variant={'text'}
