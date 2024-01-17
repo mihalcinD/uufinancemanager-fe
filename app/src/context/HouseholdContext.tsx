@@ -58,7 +58,7 @@ export const HouseholdProvider = ({ children }: Props) => {
         return {
           ...prevState,
           balance: prevState.balance + amount,
-          ...(amount < 0 ? { expenses: prevState.expenses - amount } : { incomes: prevState.incomes + amount }),
+          ...(amount < 0 ? { expenses: prevState.expenses + amount } : { incomes: prevState.incomes + amount }),
         };
       }
       return prevState;

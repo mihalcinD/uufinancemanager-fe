@@ -23,14 +23,14 @@ const useTransactions = ({ parentID }: Props) => {
   };
 
   const createTransaction = (data: Omit<CreateTransactionPayload, 'parentId'>) => {
-    return new Promise<TransactionResponse | undefined>((resolve, reject) => {
+    return new Promise<TransactionResponse>((resolve, reject) => {
       post({ ...data, parentId: parentID as string })
         .then(res => {
           setTransactions(prevState => [res, ...(prevState ?? [])]);
           resolve(res);
         })
         .catch(err => {
-          resolve(undefined);
+          reject(err);
         });
     });
   };

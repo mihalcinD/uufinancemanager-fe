@@ -13,7 +13,7 @@ const AddTransactionButton = () => {
         aria-haspopup="true"
         color="inherit"
         onClick={() => setOpenModal(true)}>
-        <AddCircleOutlineIcon />
+        <AddCircleOutlineIcon fontSize={'large'} />
       </IconButton>
       <AddTransactionModal openModal={openModal} setOpenModal={setOpenModal} />
     </>

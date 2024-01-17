@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { TransactionsResponse } from '../types/api/response/transactions.ts';
+import { TransactionResponse, TransactionsResponse } from '../types/api/response/transactions.ts';
 import { useHouseholdsContext } from './HouseholdsContext.tsx';
 import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
 import { useHouseholdContext } from './HouseholdContext.tsx';
@@ -12,7 +12,7 @@ type Props = {
 type TransactionsContextType = {
   transactions: TransactionsResponse | undefined;
   isLoading: boolean;
-  createTransaction: (data: Omit<CreateTransactionPayload, 'parentId'>) => Promise<void>;
+  createTransaction: (data: Omit<CreateTransactionPayload, 'parentId'>) => Promise<TransactionResponse>;
   isCreating: boolean;
 };
 
@@ -28,10 +28,16 @@ export const TransactionsProvider = ({ children }: Props) => {
   const { transactions, createTransaction, isCreating, isLoading } = useTransactions({ parentID: active });
 
   const _createTransaction = async (data: Omit<CreateTransactionPayload, 'parentId'>) => {
-    const res = await createTransaction(data);
-    if (res) {
-      await updateBalance(res.value);
-    }
+    return new Promise<TransactionResponse>((resolve, reject) => {
+      createTransaction(data)
+        .then(res => {
+          updateBalance(res.value);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   };
   return (
     <TransactionsContext.Provider

@@ -24,7 +24,7 @@ const SavingGoalCard = ({ savingGoal }: Props) => {
       }}>
       <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
         <Typography variant={'h4'} fontWeight={900}>
-          {(savingGoal.currentBalance / savingGoal.goal) * 100 + ' %'}
+          {Math.floor((savingGoal.currentBalance / savingGoal.goal) * 100) + ' %'}
         </Typography>
       </Box>
       <Typography variant={'h5'} fontWeight={900}>

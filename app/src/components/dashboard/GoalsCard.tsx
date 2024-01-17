@@ -26,7 +26,7 @@ const GoalsCard = ({ isLoading }: Props) => {
               savingGoals.slice(0, 5).map((goal, index) => (
                 <Box display={'flex'} flexDirection={'row'} py={0.3} justifyContent={'space-between'}>
                   <Typography fontWeight={600}>{goal.name}</Typography>
-                  <Typography fontWeight={400}>{(goal.currentBalance / goal.goal) * 100 + ' %'}</Typography>
+                  <Typography fontWeight={400}>{Math.floor((goal.currentBalance / goal.goal) * 100) + ' %'}</Typography>
                 </Box>
               ))
             ) : (
