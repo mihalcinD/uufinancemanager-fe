@@ -41,6 +41,13 @@ export const UsersProvider = ({ children }: UsersProviderProps) => {
       name: 'Jakub',
       surname: 'Šťastný',
     },
+    {
+      id: 'google-oauth2|117921399124625958264',
+      email: 'mihalcindavid@gmail.com',
+      password: 'Heslo1234',
+      name: 'Dávid',
+      surname: 'Mihalčin',
+    },
   ];
   useEffect(() => {
     if (!active && households) return;
