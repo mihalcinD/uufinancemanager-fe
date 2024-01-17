@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ApiProvider } from './ApiContext.tsx';
 import { DrawerProvider } from './DrawerContext.tsx';
 import { JSX } from 'react';
+import { SnackbarProvider } from 'notistack';
 
 type Props = {
   children: JSX.Element;
@@ -26,10 +27,12 @@ const ContextsContainer = ({ children }: Props) => {
             redirect_uri: window.location.origin,
             audience: 'http://uushoppinglist.com',
           }}>
-          <ApiProvider>
-            <CssBaseline />
-            {children}
-          </ApiProvider>
+          <SnackbarProvider>
+            <ApiProvider>
+              <CssBaseline />
+              {children}
+            </ApiProvider>
+          </SnackbarProvider>
         </Auth0Provider>
       </DrawerProvider>
     </ThemeProvider>

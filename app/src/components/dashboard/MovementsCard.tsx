@@ -33,7 +33,7 @@ const MovementsCard = ({ isLoading, income, value }: Props) => {
             <Box display={'flex'} flexDirection={'row'} gap={1} alignItems={'center'}>
               <Typography>CZK</Typography>
               <Typography variant="h6" component="h2" fontWeight={600}>
-                {value}
+                {Math.abs(value || 0)}
               </Typography>
             </Box>
           </Paper>
