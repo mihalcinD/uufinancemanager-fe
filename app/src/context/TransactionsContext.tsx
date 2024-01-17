@@ -3,7 +3,7 @@ import { TransactionsResponse } from '../types/api/response/transactions.ts';
 import { useHouseholdsContext } from './HouseholdsContext.tsx';
 import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
 import { useHouseholdContext } from './HouseholdContext.tsx';
-import useTransactions from '../hooks/useTransactions.ts';
+import useTransactions from '../hooks/api/useTransactions.ts';
 
 type Props = {
   children: React.ReactNode;

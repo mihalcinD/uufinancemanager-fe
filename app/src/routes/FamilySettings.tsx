@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import ContentWrapper from '../components/ContentWrapper';
 import {
   Box,
@@ -21,7 +20,7 @@ import { useHouseholdsContext } from '../context/HouseholdsContext';
 const FamilySettings = () => {
   const { allUsers: users } = useUsersContext();
   const { household, isLoading, updateHousehold, isPatching } = useHouseholdContext();
-  const {refresh} = useHouseholdsContext()
+  const { refresh } = useHouseholdsContext();
 
   const [householdName, setHouseholdName] = useState<string>('');
   const [membersIds, setMembersIds] = useState<User[]>([]);
@@ -41,7 +40,9 @@ const FamilySettings = () => {
       id: household?._id,
       name: householdName,
       membersIds: membersIds.map(member => member.id),
-    }).then(()=>{refresh()});
+    }).then(() => {
+      refresh();
+    });
   };
 
   useEffect(() => {

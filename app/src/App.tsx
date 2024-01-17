@@ -9,6 +9,7 @@ import FamilySettings from './routes/FamilySettings.tsx';
 import Statistics from './routes/Statistics.tsx';
 import MyProfile from './routes/MyProfile.tsx';
 import Layout from './components/Layout.tsx';
+import SavingGoal from './routes/SavingGoal.tsx';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -26,6 +27,7 @@ function App() {
             <Route path={'/:id/statistics'} element={<Statistics />} />
             <Route path={'/:id/transactions'} element={<Transactions />} />
             <Route path={'/:id/saving-goals'} element={<SavingGoals />} />
+            <Route path={'/saving-goals/:savingID'} element={<SavingGoal />} />
             <Route path={'/:id/settings'} element={<FamilySettings />} />
             <Route path={'/me'} element={<MyProfile />} />
           </Route>

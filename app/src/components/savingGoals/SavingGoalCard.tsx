@@ -1,10 +1,12 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { SavingGoalResponse } from '../../types/api/response/savingGoals.ts';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   savingGoal: SavingGoalResponse;
 };
 const SavingGoalCard = ({ savingGoal }: Props) => {
+  const navigate = useNavigate();
   return (
     <Paper
       sx={{
@@ -17,7 +19,9 @@ const SavingGoalCard = ({ savingGoal }: Props) => {
         justifyContent: 'flex-end',
         cursor: 'pointer',
       }}
-      onClick={() => {}}>
+      onClick={() => {
+        navigate(`/saving-goals/${savingGoal._id}`);
+      }}>
       <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
         <Typography variant={'h4'} fontWeight={900}>
           {(savingGoal.currentBalance / savingGoal.goal) * 100 + ' %'}

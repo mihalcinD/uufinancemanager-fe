@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { TransactionResponse, TransactionsResponse } from '../types/api/response/transactions.ts';
-import usePost from './api/crud/usePost.ts';
-import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
-import useGet from './api/crud/useGet.ts';
+import { TransactionResponse, TransactionsResponse } from '../../types/api/response/transactions.ts';
+import usePost from './crud/usePost.ts';
+import { CreateTransactionPayload } from '../../types/api/payload/transation.ts';
+import useGet from './crud/useGet.ts';
 
 type Props = { parentID: string | undefined };
 const useTransactions = ({ parentID }: Props) => {
