@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import useGet from '../hooks/api/crud/useGet.ts';
-import { TransactionResponse, TransactionsResponse } from '../types/api/response/transactions.ts';
-import usePost from '../hooks/api/crud/usePost.ts';
+import React, { createContext, useContext } from 'react';
+import { TransactionsResponse } from '../types/api/response/transactions.ts';
 import { useHouseholdsContext } from './HouseholdsContext.tsx';
 import { CreateTransactionPayload } from '../types/api/payload/transation.ts';
 import { useHouseholdContext } from './HouseholdContext.tsx';
+import useTransactions from '../hooks/useTransactions.ts';
 
 type Props = {
   children: React.ReactNode;
@@ -13,7 +12,7 @@ type Props = {
 type TransactionsContextType = {
   transactions: TransactionsResponse | undefined;
   isLoading: boolean;
-  createTransaction: (data: Omit<CreateTransactionPayload, 'parentId'>) => Promise<TransactionResponse>;
+  createTransaction: (data: Omit<CreateTransactionPayload, 'parentId'>) => Promise<void>;
   isCreating: boolean;
 };
 
@@ -26,44 +25,17 @@ export const TransactionsContext = createContext<TransactionsContextType>(undefi
 export const TransactionsProvider = ({ children }: Props) => {
   const { active } = useHouseholdsContext();
   const { updateBalance } = useHouseholdContext();
-  const { get, isLoading } = useGet<TransactionsResponse>({
-    url: '/transaction/list',
-    params: { parentId: active },
-  });
-  const { post, isLoading: isCreating } = usePost<CreateTransactionPayload, TransactionResponse>({
-    url: '/transaction/create',
-  });
-  const [transactions, setTransactions] = useState<TransactionsResponse>();
+  const { transactions, createTransaction, isCreating, isLoading } = useTransactions({ parentID: active });
 
-  const refresh = async () => {
-    const _transactions = await get();
-    if (_transactions) {
-      setTransactions(_transactions.sort((a, b) => b.createdAt - a.createdAt));
+  const _createTransaction = async (data: Omit<CreateTransactionPayload, 'parentId'>) => {
+    const res = await createTransaction(data);
+    if (res) {
+      await updateBalance(res.value);
     }
   };
-
-  const createTransaction = (data: Omit<CreateTransactionPayload, 'parentId'>) => {
-    return new Promise<TransactionResponse>((resolve, reject) => {
-      post({ ...data, parentId: active as string })
-        .then(res => {
-          updateBalance(res.value);
-          setTransactions(prevState => [res, ...(prevState ?? [])]);
-          resolve(res);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  };
-
-  useEffect(() => {
-    if (active) {
-      refresh();
-    }
-  }, [active]);
-
   return (
-    <TransactionsContext.Provider value={{ transactions, isLoading, createTransaction, isCreating }}>
+    <TransactionsContext.Provider
+      value={{ transactions, isLoading, createTransaction: _createTransaction, isCreating }}>
       {children}
     </TransactionsContext.Provider>
   );

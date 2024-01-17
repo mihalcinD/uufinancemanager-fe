@@ -7,10 +7,6 @@ const useHousehold = ({ id }: Props) => {
   const { data: household, refresh, isLoading } = useGet<HouseholdResponse>({ url: '/household/' + id });
 
   useEffect(() => {
-    console.log('household: ', household);
-  }, [household]);
-
-  useEffect(() => {
     if (id?.length === 24) refresh();
   }, [id]);
   return { household, refresh, isLoading };

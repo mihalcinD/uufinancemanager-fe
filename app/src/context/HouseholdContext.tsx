@@ -43,7 +43,7 @@ export const HouseholdProvider = ({ children }: Props) => {
     return new Promise<HouseholdResponse>((resolve, reject) => {
       patch(data)
         .then(res => {
-          setHousehold(prevState => res);
+          setHousehold(res);
           resolve(res);
         })
         .catch(err => {
@@ -72,6 +72,8 @@ export const HouseholdProvider = ({ children }: Props) => {
   }, [active]);
 
   return (
-    <HouseholdContext.Provider value={{ household, isLoading, updateBalance, updateHousehold, isPatching }}>{children}</HouseholdContext.Provider>
+    <HouseholdContext.Provider value={{ household, isLoading, updateBalance, updateHousehold, isPatching }}>
+      {children}
+    </HouseholdContext.Provider>
   );
 };
