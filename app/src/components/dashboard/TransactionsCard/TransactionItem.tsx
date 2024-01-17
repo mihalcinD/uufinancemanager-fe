@@ -1,6 +1,6 @@
 import { TransactionResponse } from '../../../types/api/response/transactions.ts';
 import { Box, Typography } from '@mui/material';
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import BalanceIndicator from '../../BalanceIndicator.tsx';
 
 type Props = {
   transaction: TransactionResponse;
@@ -8,10 +8,7 @@ type Props = {
 const TransactionItem = ({ transaction }: Props) => {
   return (
     <Box display={'flex'} gap={1} alignItems={'center'}>
-      <ArrowDropDownCircleIcon
-        sx={{ color: transaction.value > 0 ? '#27c947' : '#c92727', rotate: transaction.value > 0 ? '180deg' : '0deg' }}
-        fontSize={'small'}
-      />
+      <BalanceIndicator value={transaction.value} />
       <Box
         display={'flex'}
         borderBottom={0.5}

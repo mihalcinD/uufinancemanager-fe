@@ -1,6 +1,7 @@
 import { TransactionResponse } from '../../types/api/response/transactions.ts';
 import { Box, Chip, Typography } from '@mui/material';
 import { useTagsContext } from '../../context/TagsContext.tsx';
+import BalanceIndicator from '../BalanceIndicator.tsx';
 
 type Props = {
   transaction: TransactionResponse;
@@ -24,6 +25,10 @@ const TransactionItem = ({ transaction }: Props) => {
             <Chip label={tags?.filter(tag => tag._id === tagID)[0]?.name} key={index} />
           ))}
         </Box>
+      </Box>
+      <Box display={'flex'} flexDirection={'row'} gap={1.5} alignItems={'center'}>
+        <Typography fontWeight={900}>{'CZK ' + Math.abs(transaction.value)}</Typography>
+        <BalanceIndicator value={transaction.value} />
       </Box>
     </Box>
   );
