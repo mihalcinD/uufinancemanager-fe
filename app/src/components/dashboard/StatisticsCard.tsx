@@ -1,8 +1,9 @@
 import { Box, Paper, Skeleton, Typography, Button } from '@mui/material';
-import Graph from '../../assets/img/graph_mock.png';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { useNavigate } from 'react-router-dom';
 import { useHouseholdsContext } from '../../context/HouseholdsContext';
+import { LineChart } from '@mui/x-charts';
+import useAnalytics from '../../hooks/api/useAnalytics';
 
 type Props = {
   isLoading?: boolean;
@@ -12,6 +13,7 @@ type Props = {
 const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
   const navigate = useNavigate();
   const { active } = useHouseholdsContext();
+  const { data: balanceData } = useAnalytics({ parentId: active, period: -1 });
   return (
     <>
       {isLoading ? (
@@ -39,20 +41,22 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
               />
             </Box>
 
-            <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}>
-              <Box px={2} py={1} bgcolor={'rgba(255,255,255,0.2)'} borderRadius={4}>
-                <Typography color="inherit" fontWeight={700}>
-                  Week
-                </Typography>
-              </Box>
-              <Box px={2} py={1} borderRadius={4}>
-                <Typography color="inherit" fontWeight={700}>
-                  Month
-                </Typography>
-              </Box>
-            </Box>
+            <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}></Box>
           </Box>
-          <img src={Graph} alt={'graph'} style={{ width: '100%', marginBottom: 20 }} />
+          <LineChart
+            xAxis={
+              [{
+                data: balanceData?.map(datum => (String(datum.x))),
+                scaleType: 'point'
+              }]
+            }
+            series={
+              [{
+                data: balanceData?.map(datum => (datum.y)),
+              }]
+            }
+            height={200}
+          />
           <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
             <Typography variant="h4" color="rgba(255,255,255,0.5)" fontWeight={700}>
               Statistics
