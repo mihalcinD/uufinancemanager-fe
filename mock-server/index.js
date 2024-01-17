@@ -32,7 +32,7 @@ app.get('/', (_req, _res) => {
 app.use("/household", checkJwt, householdRouter)
 app.use("/tag", checkJwt, tagRouter)
 app.use("/saving", checkJwt, savingRouter)
-app.use("/transaction", checkJwt, transactionRouter)
+app.use("/transactions", checkJwt, transactionRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
