@@ -5,6 +5,7 @@ import { TransactionsProvider } from './TransactionsContext.tsx';
 import { SavingGoalsProvider } from './SavingGoalsContext.tsx';
 import { StatisticsProvider } from './StatisticsContext.tsx';
 import { TagsProvider } from './TagsContext.tsx';
+import { UsersProvider } from './UsersContext.tsx';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -17,7 +18,9 @@ const AuthorizedContextsContainer = ({ children }: Props) => {
         <TagsProvider>
           <TransactionsProvider>
             <SavingGoalsProvider>
-              <StatisticsProvider>{children}</StatisticsProvider>
+              <StatisticsProvider>
+                <UsersProvider>{children}</UsersProvider>
+              </StatisticsProvider>
             </SavingGoalsProvider>
           </TransactionsProvider>
         </TagsProvider>
