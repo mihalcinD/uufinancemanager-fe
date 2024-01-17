@@ -53,7 +53,7 @@ export const UsersProvider = ({ children }: UsersProviderProps) => {
     if (!active && households) return;
     const activeHousehold = households?.find(household => household._id === active);
     let localUsers = activeHousehold?.membersIds.map(user => users.find(item => item.id === user));
-    localUsers?.push(users.find(item => item.id === activeHousehold?.ownerId))
+    localUsers?.unshift(users.find(item => item.id === activeHousehold?.ownerId));
     if (!localUsers) return;
     const filtered = localUsers.filter(user => user !== undefined) as unknown as User[];
     setUsersInHousehold(filtered);

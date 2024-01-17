@@ -1,17 +1,16 @@
 import { Box, Button, Paper, Skeleton, Typography } from '@mui/material';
-import { useHouseholdContext } from '../../context/HouseholdContext.tsx';
 import { useHouseholdsContext } from '../../context/HouseholdsContext.tsx';
 import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useUsersContext } from '../../context/UsersContext.tsx';
 
 type Props = {
   isLoading?: boolean;
 };
 const MembersCard = ({ isLoading }: Props) => {
   const { active } = useHouseholdsContext();
-  const { household } = useHouseholdContext();
+  const { users } = useUsersContext();
   const navigate = useNavigate();
-  const { user } = useAuth0();
+
   return (
     <>
       {isLoading ? (
@@ -25,13 +24,9 @@ const MembersCard = ({ isLoading }: Props) => {
             <Typography component={'h2'} fontWeight={600} mb={0.5}>
               Members
             </Typography>
-
-            <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>{user?.email}</Typography>
-            </Box>
-            {household?.membersIds.map((memberID, index) => (
-              <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-                <Typography>{memberID}</Typography>
+            {users.map((user, index) => (
+              <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} key={index}>
+                <Typography>{user.email}</Typography>
               </Box>
             ))}
           </Box>
