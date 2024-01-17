@@ -43,7 +43,16 @@ export const SavingGoalsProvider = ({ children }: Props) => {
   };
 
   const createSavingGoal = (data: Omit<CreateSavingGoalPayload, 'householdId'>) => {
-    return new Promise<SavingGoalResponse>((resolve, reject) => {});
+    return new Promise<SavingGoalResponse>((resolve, reject) => {
+      post({ ...data, householdId: active as string })
+        .then(res => {
+          setSavingGoals(prevState => [res, ...(prevState ?? [])]);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   };
 
   useEffect(() => {

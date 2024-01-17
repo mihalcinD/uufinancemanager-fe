@@ -17,11 +17,9 @@ const Statistics = () => {
   const [memberFilter, setMemberFilter] = useState<string>('all');
 
   const [tagFilter, setTagFilter] = useState<string>('all');
-  const { tags, isLoading } = useTagsContext();
+  const { tags } = useTagsContext();
   const { users } = useUsersContext();
-
   const { data: balanceData } = useAnalytics({ parentId: id, period: timePeriodFilter });
-
   const { data: incomeData } = useStatistics({
     parentId: id,
     positive: true,
@@ -72,8 +70,9 @@ const Statistics = () => {
               onChange={e => setMemberFilter(e.target.value)}>
               <MenuItem value={'all'}>všichni</MenuItem>
               {users.map(user => (
-                <MenuItem value={user.id}>{user.name} {user.surname}</MenuItem>
-
+                <MenuItem value={user.id}>
+                  {user.name} {user.surname}
+                </MenuItem>
               ))}
             </Select>
           </Stack>
