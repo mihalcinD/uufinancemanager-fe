@@ -46,13 +46,13 @@ const StatisticsCard = ({ isLoading, overall, householdId }: Props) => {
           <LineChart
             xAxis={
               [{
-                data: balanceData?.map(datum => (String(datum.x))),
+                data: balanceData?.map(datum => (String(datum.x))) || [],
                 scaleType: 'point'
               }]
             }
             series={
               [{
-                data: balanceData?.map(datum => (datum.y)),
+                data: balanceData?.map(datum => (datum.y))  || [],
               }]
             }
             height={200}
