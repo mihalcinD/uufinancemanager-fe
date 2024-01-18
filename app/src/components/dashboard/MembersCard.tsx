@@ -2,14 +2,18 @@ import { Box, Button, Paper, Skeleton, Typography } from '@mui/material';
 import { useHouseholdsContext } from '../../context/HouseholdsContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useUsersContext } from '../../context/UsersContext.tsx';
+import { useHouseholdContext } from '../../context/HouseholdContext.tsx';
+import { useAuth0 } from '@auth0/auth0-react';
 
 type Props = {
   isLoading?: boolean;
 };
 const MembersCard = ({ isLoading }: Props) => {
   const { active } = useHouseholdsContext();
+  const { household } = useHouseholdContext();
   const { users } = useUsersContext();
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   return (
     <>
@@ -37,9 +41,11 @@ const MembersCard = ({ isLoading }: Props) => {
             onClick={() => {
               navigate('/' + active + '/settings');
             }}>
-            <Typography color="inherit" fontWeight={700}>
-              Show Settings
-            </Typography>
+            {household?.ownerId === user?.sub && (
+              <Typography color="inherit" fontWeight={700}>
+                Show Settings
+              </Typography>
+            )}
           </Button>
         </Paper>
       )}
